@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dyslexia Reading Assessment</title>
+    <link rel="stylesheet" href="stylesread.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/open-dyslexic/3/3.1/fonts/opendyslexic.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">ReadAble</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="reading-container">
+            <h1>Reading Assessment</h1>
+            
+            <div class="instructions">
+                <h3>How to Read the Passage:</h3>
+                <ol>
+                    <li>Click the <strong>"Start Reading"</strong> button when you're ready</li>
+                    <li>Read the passage below out loud at your normal pace</li>
+                    <li>Speak clearly into your microphone</li>
+                    <li>Click <strong>"Stop"</strong> when you finish reading</li>
+                    <li>Review what you've read and click <strong>"Submit"</strong></li>
+                </ol>
+                <p class="tip">Take your time and read at a comfortable pace. There is no rush!</p>
+            </div>
+            
+            <div class="reading-passage" id="reading-text">
+                The sun was setting behind the mountains, casting long shadows across the valley. Birds were flying back to their nests, and the cool evening breeze rustled through the trees. A small river flowed gently through the middle of the green meadow, reflecting the golden sunlight. Children were playing in the distance, their laughter echoing across the peaceful landscape. It was a perfect end to a beautiful summer day.
+            </div>
+            
+            <div class="controls">
+                <button id="startBtn" class="btn-primary">Start Reading</button>
+                <button id="stopBtn" class="btn-secondary" disabled>Stop</button>
+                <button id="submitBtn" class="btn-submit" disabled>Submit</button>
+            </div>
+            
+            <div class="status" id="status">Ready to begin</div>
+            
+            <div class="transcript-container">
+                <h2>Your Reading</h2>
+                <div class="transcript" id="transcript">
+                    <p class="transcript-placeholder">Your reading will appear here as you speak...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scriptread.js"></script>
+</body>
+</html>
