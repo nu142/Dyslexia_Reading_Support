@@ -3,41 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HRMagnet</title>
+  <title>ReadAble - Dyslexia Reading Support</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">HRMagnet</div>
-    <nav>
+  <header class="navbar" role="banner">
+    <div class="logo">ReadAble</div>
+    <nav aria-label="Main navigation">
       <ul class="nav-links">
-        <li><a href="#">Product</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Tools</a></li>
+        <li><a href="#">How It Works</a></li>
         <li><a href="#">Resources</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">Benefits</a></li>
-        <li><a href="#">Pricing</a></li>
       </ul>
     </nav>
     <div class="auth-buttons">
       <a href="#" class="sign-in">Sign in</a>
-      <a href="#" class="start-free">Start for free</a>
+      <a href="#" class="start-free">Start for Free</a>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Magnetize<br><span>Your Workplace<br>Management Solution</span></h1>
-      <p>Unlock efficiency with Magnet, your all-in-one workplace management platform. Simplify HR tasks and elevate employee experience.</p>
+  <main class="hero">
+    <section class="hero-content">
+      <h1>Empower Dyslexic Readers<br><span>With Tools That Make Reading Easier</span></h1>
+      <p>
+        ReadAble helps children and adults with dyslexia by offering tools like text-to-speech, font support, and reading overlays. Discover a better way to read and learn today.
+      </p>
       <div class="buttons">
-        <a href="#" class="btn-primary">Get start today</a>
-        <a href="#" class="btn-secondary">Book a demo</a>
+        <a href="#" class="btn-primary">Try it Now</a>
+        <a href="#" class="btn-secondary">Learn More</a>
       </div>
-    </div>
-    <div class="hero-visuals">
-      <img src="https://via.placeholder.com/100x100?text=User1" class="user-card top-card" alt="User1" />
-      <img src="https://via.placeholder.com/100x100?text=User2" class="user-card bottom-card" alt="User2" />
-      <img src="https://via.placeholder.com/300x200?text=Dashboard" class="dashboard" alt="Dashboard" />
-    </div>
-  </section>
+    </section>
+
+    <aside class="hero-visuals" aria-hidden="true">
+      <img src="https://via.placeholder.com/120x120?text=Voice+Tool" class="feature-icon top-icon" alt="Voice tool illustration" />
+      <img src="https://via.placeholder.com/120x120?text=Overlay" class="feature-icon bottom-icon" alt="Overlay tool illustration" />
+      <img src="https://via.placeholder.com/320x200?text=Reading+Dashboard" class="dashboard" alt="Reading dashboard preview" />
+    </aside>
+  </main>
 </body>
 </html>

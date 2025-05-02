@@ -1,8 +1,10 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fff;
-  color: #222;
+  font-family: 'Open Dyslexic', Arial, sans-serif;
+  background-color: #f7f6f0;
+  color: #1a1a1a;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 .navbar {
@@ -10,25 +12,26 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background-color: #fff;
+  background-color: #fff7ea;
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  color: #6c63ff;
+  color: #4a47a3;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 30px;
+  gap: 25px;
+  padding: 0;
 }
 
 .nav-links a {
   text-decoration: none;
   color: #333;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .auth-buttons {
@@ -36,18 +39,21 @@ body {
   gap: 15px;
 }
 
-.sign-in {
-  color: #6c63ff;
+.sign-in, .start-free {
   text-decoration: none;
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.sign-in {
+  background-color: transparent;
+  color: #4a47a3;
 }
 
 .start-free {
-  background-color: #ff5b5b;
+  background-color: #00b894;
   color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
 }
 
 .hero {
@@ -55,21 +61,22 @@ body {
   justify-content: space-between;
   padding: 60px 80px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .hero-content h1 {
-  font-size: 40px;
-  color: #551a50;
-  margin: 0;
+  font-size: 34px;
+  color: #2d1e2f;
+  text-align: left;
 }
 
 .hero-content span {
-  color: #d03365;
+  color: #6c5ce7;
 }
 
 .hero-content p {
-  margin: 20px 0;
-  max-width: 400px;
+  max-width: 480px;
+  text-align: left;
 }
 
 .buttons {
@@ -80,48 +87,48 @@ body {
 
 .btn-primary, .btn-secondary {
   text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 6px;
+  padding: 14px 24px;
+  border-radius: 8px;
   font-weight: bold;
+  display: inline-block;
 }
 
 .btn-primary {
-  background-color: #6c63ff;
+  background-color: #4a47a3;
   color: white;
 }
 
 .btn-secondary {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #dfe6e9;
+  color: #2d3436;
 }
 
 .hero-visuals {
   position: relative;
+  margin-top: 20px;
 }
 
-.user-card {
-  border-radius: 50%;
+.feature-icon {
   position: absolute;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 3px solid #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
 }
 
-.top-card {
+.top-icon {
   top: -40px;
-  left: 80px;
+  left: 50px;
 }
 
-.bottom-card {
-  top: 120px;
+.bottom-icon {
+  top: 140px;
   left: 160px;
 }
 
 .dashboard {
-  width: 300px;
-  margin-left: 80px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  width: 320px;
+  margin-left: 100px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
