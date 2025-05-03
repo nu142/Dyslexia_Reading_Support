@@ -4,40 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dyslexia Screening Quiz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet">
-  <script>
-  let speechSynthesisUtterance;
-
-  function speak(text) {
-    // Stop any previous speech
-    stopSpeaking();
-
-    speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(speechSynthesisUtterance);
-  }
-
-  function stopSpeaking() {
-    if (speechSynthesisUtterance) {
-      window.speechSynthesis.cancel(); // stop any ongoing speech
-      speechSynthesisUtterance = null;
-    }
-  }
-
-  function scrollToNext(currentDiv) {
-    stopSpeaking(); // stop audio when answer is selected
-
-    const allQuestions = document.querySelectorAll('.question');
-    const index = Array.from(allQuestions).indexOf(currentDiv);
-    if (index !== -1 && index + 1 < allQuestions.length) {
-      allQuestions[index + 1].scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-</script>
-
-
-
   <style>
-
     body {
       font-family: 'Open Dyslexic', Arial, sans-serif;
       background-color: #f4f4f9;
@@ -47,12 +17,10 @@
       margin: auto;
       line-height: 1.8;
     }
-
     h1 {
       text-align: center;
       color: #3a3a8c;
     }
-
     .question {
       margin-bottom: 25px;
       padding: 20px;
@@ -60,20 +28,17 @@
       border-radius: 10px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-
     .question h3 {
       margin-top: 0;
     }
-
     label {
       display: block;
       margin: 8px 0;
     }
-
     button {
       background-color: #3a3a8c;
       color: white;
-      padding: 12px 24px;
+      padding: 12px 20px 12px 24px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -81,183 +46,157 @@
       display: block;
       margin: 30px auto;
     }
-
     button:hover {
       background-color: #2b2b6e;
     }
-   
-  .speaker {
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-left: 8px;
-    color: #3a3a8c;
-  }
-
-  .speaker:hover {
-    color: #2b2b6e;
-  }
-
-
-  
+    .speaker {
+      cursor: pointer;
+      font-size: 1.2em;
+      margin-left: 8px;
+      color: #3a3a8c;
+    }
+    .speaker:hover {
+      color: #2b2b6e;
+    }
   </style>
-</head>
-<body>
+  <script>
+    let speechSynthesisUtterance;
 
-  <h1>Dyslexia Screening Quiz</h1>
-  <form id="quizForm">
+    function speak(text) {
+      stopSpeaking();
+      speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(speechSynthesisUtterance);
+    }
 
-<!-- Q1 -->
-<div class="question" id="q1-div">
-  <h3>
-    1. Do you often lose your place while reading or need to re-read lines?
-    <span class="speaker" onclick="speak('Do you often lose your place while reading or need to re-read lines? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q1" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q1" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q1" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q1" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Q2 -->
-<div class="question" id="q2-div">
-  <h3>
-    2. Do you find it difficult to sound out unfamiliar words?
-    <span class="speaker" onclick="speak('Do you find it difficult to sound out unfamiliar words? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q2" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q2" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q2" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q2" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Q3 -->
-<div class="question" id="q3-div">
-  <h3>
-    3. Do you mix up the order of letters when reading or writing (like reading "form" instead of "from")?
-    <span class="speaker" onclick="speak('Do you mix up the order of letters when reading or writing, like reading form instead of from? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q3" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q3" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q3" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q3" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Q4 -->
-<div class="question" id="q4-div">
-  <h3>
-    4. Do you need to read text multiple times to understand it?
-    <span class="speaker" onclick="speak('Do you need to read text multiple times to understand it? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q4" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q4" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q4" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q4" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Q5 -->
-<div class="question" id="q5-div">
-  <h3>
-    5. Do you confuse similar-looking letters (like b/d, p/q)?
-    <span class="speaker" onclick="speak('Do you confuse similar-looking letters, like b and d or p and q? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q5" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q5" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q5" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q5" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Q6 -->
-<div class="question" id="q6-div">
-  <h3>
-    6. Do words sometimes appear to move or blur on the page?
-    <span class="speaker" onclick="speak('Do words sometimes appear to move or blur on the page? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q6" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q6" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q6" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q6" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Q7 -->
-<div class="question" id="q7-div">
-  <h3>
-    7. Do you struggle to remember what you've just read, even after reading it carefully?
-    <span class="speaker" onclick="speak('Do you struggle to remember what you have just read, even after reading it carefully? Option 1 Never, Option 2 Sometimes, Option 3 Often, Option 4 Always')">🔊</span>
-  </h3>
-  <label><input type="radio" name="q7" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-  <label><input type="radio" name="q7" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-  <label><input type="radio" name="q7" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-  <label><input type="radio" name="q7" value="4" onclick="scrollToNext(this.closest('.question'))"> Always</label>
-</div>
-
-<!-- Submit -->
-
-
-    <button type="submit">Submit Quiz</button>
-  </form>
-
- 
-   <script>
-  document.querySelector("form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Validate all questions are answered
-    for (let i = 1; i <= 7; i++) {
-      if (!document.querySelector(`input[name=q${i}]:checked`)) {
-        alert(`Please answer question ${i}.`);
-        document.getElementById(`q${i}-div`).scrollIntoView({ behavior: "smooth" });
-        return;
+    function stopSpeaking() {
+      if (speechSynthesisUtterance) {
+        window.speechSynthesis.cancel();
+        speechSynthesisUtterance = null;
       }
     }
 
-    const categoryMap = {
-      q1: "visualTracking",
-      q2: "phonological",
-      q3: "sequencing",
-      q4: "comprehension",
-      q5: "visualProcessing",
-      q6: "visualProcessing",
-      q7: "workingMemory",
-    };
-
-    const scores = {
-      visualTracking: 0,
-      phonological: 0,
-      sequencing: 0,
-      comprehension: 0,
-      visualProcessing: 0,
-      workingMemory: 0,
-    };
-
-    for (let q in categoryMap) {
-      const val = parseInt(document.querySelector(`input[name=${q}]:checked`).value);
-      scores[categoryMap[q]] += val;
+    function scrollToNext(currentDiv) {
+      stopSpeaking();
+      const allQuestions = document.querySelectorAll('.question');
+      const index = Array.from(allQuestions).indexOf(currentDiv);
+      if (index !== -1 && index + 1 < allQuestions.length) {
+        allQuestions[index + 1].scrollIntoView({ behavior: 'smooth' });
+      }
     }
+  </script>
+</head>
+<body>
+  <h1>Dyslexia Screening Quiz</h1>
+  <form id="quizForm">
 
-    const results = [];
+  <!-- Questions -->
+  <script>
+    const questions = [
+      {
+        id: "q1",
+        text: "Do you often lose your place while reading or need to re-read lines?",
+        category: "visualTracking"
+      },
+      {
+        id: "q2",
+        text: "Do you find it difficult to sound out unfamiliar words?",
+        category: "phonological"
+      },
+      {
+        id: "q3",
+        text: "Do you mix up the order of letters when reading or writing (like reading 'form' instead of 'from')?",
+        category: "sequencing"
+      },
+      {
+        id: "q4",
+        text: "Do you need to read text multiple times to understand it?",
+        category: "comprehension"
+      },
+      {
+        id: "q5",
+        text: "Do you confuse similar-looking letters (like b/d, p/q)?",
+        category: "visualProcessing"
+      },
+      {
+        id: "q6",
+        text: "Do words sometimes appear to move or blur on the page?",
+        category: "visualProcessing"
+      },
+      {
+        id: "q7",
+        text: "Do you struggle to remember what you've just read, even after reading it carefully?",
+        category: "workingMemory"
+      }
+    ];
 
-    if (scores.visualProcessing >= 6)
-      results.push("⚙️ Try using color overlays or high-contrast fonts.");
-    if (scores.phonological >= 3)
-      results.push("🔊 Use phonics-based exercises and text-to-speech tools.");
-    if (scores.visualTracking >= 3)
-      results.push("📖 Use tools to highlight reading lines.");
-    if (scores.comprehension >= 3)
-      results.push("🧩 Try simplified summaries or assisted reading.");
-    if (scores.sequencing >= 3)
-      results.push("🔡 Letter-sequencing games may help.");
-    if (scores.workingMemory >= 3)
-      results.push("🧠 Use visual cues and repetition aids.");
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("quizForm");
+      questions.forEach((q, i) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.id = `${q.id}-div`;
+        div.innerHTML = `
+          <h3>
+            ${i + 1}. ${q.text}
+            <span class="speaker" onclick="speak('${q.text} Option 1 Never, Option 2 Sometimes, Option 3 Often')">🔊</span>
+          </h3>
+          <label><input type="radio" name="${q.id}" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+          <label><input type="radio" name="${q.id}" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+          <label><input type="radio" name="${q.id}" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+        `;
+        form.insertBefore(div, form.lastElementChild);
+      });
+    });
+  </script>
 
-    localStorage.setItem("dyslexiaResults", JSON.stringify(results));
+  <!-- Submit Button -->
+ <button type="submit">
+  Move to Reading Test <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+</button>
 
-    alert("📊 Your personalized support recommendations:\n\n" + results.join("\n"));
-    window.location.href = "reading-test.html"; // Move to next page
-  });
-</script>
+</form>
 
+  <script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  
+      const scores = {
+        visualTracking: 0,
+        phonological: 0,
+        sequencing: 0,
+        comprehension: 0,
+        visualProcessing: 0,
+        workingMemory: 0,
+      };
 
+      for (const q of questions) {
+        const input = document.querySelector(`input[name=${q.id}]:checked`);
+        if (!input) {
+          alert(`Please answer question ${q.id.replace("q", "")}.`);
+          document.getElementById(`${q.id}-div`).scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+        scores[q.category] += parseInt(input.value);
+      }
+
+      const results = [];
+      if (scores.visualProcessing >= 5)
+        results.push("⚙️ Try using color overlays or high-contrast fonts.");
+      if (scores.phonological >= 3)
+        results.push("🔊 Use phonics-based exercises and text-to-speech tools.");
+      if (scores.visualTracking >= 2)
+        results.push("📖 Use tools to highlight reading lines.");
+      if (scores.comprehension >= 3)
+        results.push("🧩 Try simplified summaries or assisted reading.");
+      if (scores.sequencing >= 3)
+        results.push("🔡 Letter-sequencing games may help.");
+      if (scores.workingMemory >= 3)
+        results.push("🧠 Use visual cues and repetition aids.");
+
+      localStorage.setItem("dyslexiaResults", JSON.stringify(results));
+      alert("📊 Your personalized support recommendations:\n\n" + results.join("\n"));
+      window.location.href = "reading-test.html";
+    });
+  </script>
 </body>
 </html>
