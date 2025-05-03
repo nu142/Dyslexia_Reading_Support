@@ -1,0 +1,246 @@
+/* Main styling with your color palette */
+body {
+  margin: 0;
+  font-family: 'OpenDyslexic', Arial, sans-serif;
+  background-color: #f7f6f0;
+  color: #1a1a1a;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #fff7ea;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #4a47a3;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.sign-in, .start-free {
+  text-decoration: none;
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.sign-in {
+  background-color: transparent;
+  color: #4a47a3;
+}
+
+.start-free {
+  background-color: #00b894;
+  color: white;
+}
+
+/* Main content container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Reading assessment specific styling */
+.reading-container {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.reading-container h1 {
+  color: #2d1e2f;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+.instructions {
+  background-color: #fff7ea;
+  padding: 20px 25px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border-left: 4px solid #4a47a3;
+}
+
+.instructions h3 {
+  margin-top: 0;
+  color: #4a47a3;
+  font-size: 20px;
+}
+
+.instructions ol {
+  padding-left: 25px;
+  margin-bottom: 15px;
+}
+
+.instructions li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.instructions strong {
+  color: #4a47a3;
+}
+
+.instructions .tip {
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-weight: 600;
+  font-style: italic;
+  color: #00b894;
+}
+
+.reading-passage {
+  background-color: #f9f9f5;
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  font-size: 22px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  word-spacing: 6px;
+  text-align: left;
+}
+
+/* Button styling */
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.btn-primary, .btn-secondary, .btn-submit {
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: 'OpenDyslexic', Arial, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #4a47a3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #3c3984;
+}
+
+.btn-secondary {
+  background-color: #dfe6e9;
+  color: #2d3436;
+}
+
+.btn-secondary:hover {
+  background-color: #c8d6db;
+}
+
+.btn-submit {
+  background-color: #00b894;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #00a382;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Status indicator */
+.status {
+  text-align: center;
+  margin: 15px 0;
+  font-style: italic;
+  color: #666;
+  min-height: 25px;
+}
+
+/* Transcript styling */
+.transcript-container {
+  margin-top: 40px;
+}
+
+.transcript-container h2 {
+  color: #2d1e2f;
+  margin-bottom: 15px;
+}
+
+.transcript {
+  background-color: #f9f9f5;
+  padding: 20px;
+  border-radius: 8px;
+  min-height: 150px;
+  border: 1px solid #ddd;
+  font-size: 20px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  word-spacing: 6px;
+}
+
+.transcript-placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Dyslexia-friendly adjustments */
+p, .transcript, .reading-passage {
+  max-width: 70ch; /* Limits line length for better readability */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px 20px;
+  }
+  
+  .nav-links {
+      width: 100%;
+      justify-content: center;
+  }
+  
+  .auth-buttons {
+      width: 100%;
+      justify-content: center;
+  }
+  
+  .reading-passage {
+      font-size: 20px;
+      padding: 20px;
+  }
+}
