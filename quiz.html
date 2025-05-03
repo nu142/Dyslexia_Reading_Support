@@ -7,170 +7,277 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
+
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Open Dyslexic', Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #222;
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-      line-height: 1.8;
+      margin: 0;
+      font-family: 'OpenDyslexic', sans-serif;
+      background: #f4f4f9;
+      color: #333333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      background: #2a3d66;
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      color: white;
+      margin-bottom: 20px;
     }
     h1 {
-      text-align: center;
-      color: #3a3a8c;
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: white;
     }
+
+    /* Main quiz container */
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      margin: 0 auto 25px;
+      box-shadow: 0 4px 20px rgba(42, 61, 102, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 800px;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Question styling */
     .question {
       margin-bottom: 25px;
       padding: 20px;
-      background-color: #fff;
+      background: #f4f4f9;
       border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .question h3 { margin-top: 0; }
+    .question h3 {
+      margin-top: 0;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: #2a3d66;
+    }
     label {
       display: block;
-      margin: 8px 0;
-      font-size: 16px;
+      margin: 10px 0;
+      font-size: 1.1rem;
+      color: #333333;
     }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    /* Submit button */
     button {
-      background-color: #3a3a8c;
+      background: #4caf50;
       color: white;
-      padding: 12px 20px 12px 24px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 12px 25px;
+      border-radius: 20px;
       border: none;
-      border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
       display: block;
       margin: 30px auto;
+      transition: all 0.25s ease;
+      letter-spacing: 0.05em;
     }
-    button:hover { background-color: #2b2b6e; }
+    button:hover:not(:disabled) {
+      background: #3d8b40;
+    }
+    button:disabled {
+      background: #a5aacc;
+      color: #f4f4f9;
+      cursor: default;
+    }
+
+    /* Speaker icon */
     .speaker {
       cursor: pointer;
       font-size: 1.2em;
       margin-left: 8px;
-      color: #3a3a8c;
+      color: #4e8af0;
+      transition: all 0.2s ease;
     }
-    .speaker:hover { color: #2b2b6e; }
+    .speaker:hover {
+      color: #3a7ae0;
+    }
+
+    /* Focus states for accessibility */
+    button:focus, input[type="radio"]:focus, .speaker:focus {
+      outline: 3px solid #ffeb3b;
+      outline-offset: 2px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      main {
+        margin: 10px auto 20px;
+        padding: 15px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .question h3 {
+        font-size: 1.1rem;
+      }
+      label {
+        font-size: 1rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+    @media (max-width: 400px) {
+      main {
+        width: 95%;
+      }
+      .question {
+        padding: 15px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Dyslexia Screening Quiz</h1>
-  <form id="quizForm">
-    <!-- Question 1: Visual Dyslexia -->
-    <div class="question" id="q1-div">
-      <h3>
-        1. Do you often lose your place while reading?
-        <span class="speaker" onclick="speak('Do you often lose your place while reading? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q1" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q1" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q1" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+  <header>
+    <h1>Dyslexia Screening Quiz</h1>
+  </header>
+  <main>
+    <form id="quizForm">
+      <!-- Question 1: Visual Dyslexia -->
+      <div class="question" id="q1-div">
+        <h3>
+          1. Do you often lose your place while reading?
+          <span class="speaker" onclick="speak('Do you often lose your place while reading? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q1" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q1" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q1" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 2: Phonological Dyslexia -->
-    <div class="question" id="q2-div">
-      <h3>
-        2. Do you find it hard to break words into syllables when reading?
-        <span class="speaker" onclick="speak('Do you find it hard to break words into syllables when reading? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q2" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q2" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q2" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 2: Phonological Dyslexia -->
+      <div class="question" id="q2-div">
+        <h3>
+          2. Do you find it hard to break words into syllables when reading?
+          <span class="speaker" onclick="speak('Do you find it hard to break words into syllables when reading? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q2" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q2" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q2" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 3: Visual Dyslexia -->
-    <div class="question" id="q3-div">
-      <h3>
-        3. Do you confuse letters like "b" and "d" or "p" and "q"?
-        <span class="speaker" onclick="speak('Do you confuse letters like b and d or p and q? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q3" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q3" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q3" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 3: Visual Dyslexia -->
+      <div class="question" id="q3-div">
+        <h3>
+          3. Do you confuse letters like "b" and "d" or "p" and "q"?
+          <span class="speaker" onclick="speak('Do you confuse letters like b and d or p and q? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q3" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q3" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q3" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 4: Math-Related Dyslexia -->
-    <div class="question" id="q4-div">
-      <h3>
-        4. Do you struggle with reading maps or graphs?
-        <span class="speaker" onclick="speak('Do you struggle with reading maps or graphs? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q4" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q4" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q4" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 4: Math-Related Dyslexia -->
+      <div class="question" id="q4-div">
+        <h3>
+          4. Do you struggle with reading maps or graphs?
+          <span class="speaker" onclick="speak('Do you struggle with reading maps or graphs? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q4" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q4" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q4" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 5: Math-Related Dyslexia -->
-    <div class="question" id="q5-div">
-      <h3>
-        5. Do you struggle with basic math like counting or telling time?
-        <span class="speaker" onclick="speak('Do you struggle with basic math like counting or telling time? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q5" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q5" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q5" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 5: Math-Related Dyslexia -->
+      <div class="question" id="q5-div">
+        <h3>
+          5. Do you struggle with basic math like counting or telling time?
+          <span class="speaker" onclick="speak('Do you struggle with basic math like counting or telling time? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q5" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q5" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q5" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 6: Visual Dyslexia -->
-    <div class="question" id="q6-div">
-      <h3>
-        6. Do numbers often get reversed or appear in the wrong order?
-        <span class="speaker" onclick="speak('Do numbers often get reversed or appear in the wrong order? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q6" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q6" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q6" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 6: Visual Dyslexia -->
+      <div class="question" id="q6-div">
+        <h3>
+          6. Do numbers often get reversed or appear in the wrong order?
+          <span class="speaker" onclick="speak('Do numbers often get reversed or appear in the wrong order? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q6" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q6" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q6" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 7: Visual Dyslexia -->
-    <div class="question" id="q7-div">
-      <h3>
-        7. Do words blur or move around when you read?
-        <span class="speaker" onclick="speak('Do words blur or move around when you read? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q7" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q7" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q7" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 7: Visual Dyslexia -->
+      <div class="question" id="q7-div">
+        <h3>
+          7. Do words blur or move around when you read?
+          <span class="speaker" onclick="speak('Do words blur or move around when you read? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q7" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q7" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q7" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 8: Auditory Dyslexia -->
-    <div class="question" id="q8-div">
-      <h3>
-        8. Do you get headaches or tired eyes when reading for a long time?
-        <span class="speaker" onclick="speak('Do you get headaches or tired eyes when reading for a long time? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q8" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q8" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q8" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 8: Auditory Dyslexia -->
+      <div class="question" id="q8-div">
+        <h3>
+          8. Do you get headaches or tired eyes when reading for a long time?
+          <span class="speaker" onclick="speak('Do you get headaches or tired eyes when reading for a long time? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q8" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q8" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q8" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 9: Memory-Related Dyslexia -->
-    <div class="question" id="q9-div">
-      <h3>
-        9. Do you struggle to recall instructions shortly after hearing them?
-        <span class="speaker" onclick="speak('Do you struggle to recall instructions shortly after hearing them? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q9" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q9" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q9" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 9: Memory-Related Dyslexia -->
+      <div class="question" id="q9-div">
+        <h3>
+          9. Do you struggle to recall instructions shortly after hearing them?
+          <span class="speaker" onclick="speak('Do you struggle to recall instructions shortly after hearing them? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q9" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q9" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q9" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <!-- Question 10: Memory-Related Dyslexia -->
-    <div class="question" id="q10-div">
-      <h3>
-        10. Do you forget what you read even after reading it carefully?
-        <span class="speaker" onclick="speak('Do you forget what you read even after reading it carefully? Never, Sometimes, Often')">🔊</span>
-      </h3>
-      <label><input type="radio" name="q10" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
-      <label><input type="radio" name="q10" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
-      <label><input type="radio" name="q10" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
-    </div>
+      <!-- Question 10: Memory-Related Dyslexia -->
+      <div class="question" id="q10-div">
+        <h3>
+          10. Do you forget what you read even after reading it carefully?
+          <span class="speaker" onclick="speak('Do you forget what you read even after reading it carefully? Never, Sometimes, Often')">🔊</span>
+        </h3>
+        <label><input type="radio" name="q10" value="1" onclick="scrollToNext(this.closest('.question'))"> Never</label>
+        <label><input type="radio" name="q10" value="2" onclick="scrollToNext(this.closest('.question'))"> Sometimes</label>
+        <label><input type="radio" name="q10" value="3" onclick="scrollToNext(this.closest('.question'))"> Often</label>
+      </div>
 
-    <button type="submit">
-      Move to Reading Test <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
-    </button>
-  </form>
+      <button type="submit">
+        Move to Reading Test <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+      </button>
+    </form>
+  </main>
 
   <script>
     let speechSynthesisUtterance;
