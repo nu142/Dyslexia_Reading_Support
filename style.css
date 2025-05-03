@@ -94,7 +94,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #4a47a3;
+  background-color: #00b894;
   color: white;
 }
 
@@ -110,27 +110,26 @@ body {
 
 .feature-icon {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  
 }
 
-.top-icon {
-  top: -40px;
-  left: 50px;
+.middle-icon {
+  top: -180px;
+  left: -490px; /*middle*/
 }
 
 .bottom-icon {
-  top: 140px;
-  left: 160px;
+  top: -100px;
+  left:  -300px; /* moved right */
 }
 
-.dashboard {
-  width: 320px;
-  margin-left: 100px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+
+.top-icon {
+ top: -310px;
+  left: -280px;
 }
 
 /* Modal Styles */
@@ -197,4 +196,86 @@ backdrop-filter: blur(6px);
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+/* Tablet Screens */
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    padding: 40px 30px;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .hero-visuals {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .feature-icon {
+    position: static;
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: small;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .login, .start-free {
+    width: 80%;
+    margin: 20px;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 24px;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .modal-content {
+    width: 90%;
+    font-size: 14px;
+  }
+
+  .feature-icon {
+    width: 160px;
+    height: 160px;
+  }
 }
