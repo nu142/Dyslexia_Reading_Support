@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works - ReadAble</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet" />
+<style>
+  body {
+    font-family: 'OpenDyslexic', Arial, sans-serif;
+    margin: 0;
+  background: linear-gradient(135deg,#4a47a3,#4a47a390); 
+    color: #333;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg,#fff7e6,#fff7e6ce); 
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+  }
+
+  .logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #4a47a3;
+}
+
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 1rem;
+  }
+
+  .content-box {
+    max-width: 700px;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+
+  ol {
+    padding-left: 1.5rem;
+  }
+
+  ol li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.auth-buttons a {
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.login {
+  background-color: transparent;
+  color: #4a47a3;
+  border: 2px solid #4a47a3;
+}
+
+.login:hover {
+  background-color: #4a47a3;
+  color: white;
+}
+
+.start-free {
+  background-color: #00b894;
+  color: white;
+  border: 2px solid #00b894;
+}
+
+.start-free:hover {
+  background-color: white;
+  color: #00b894;
+}
+
+  /* ✅ Media Query for small screens */
+/* ✅ Media Query to reduce size and keep top-right alignment */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .auth-buttons {
+    margin-left: auto;
+    gap: 0.3rem;
+  }
+
+  .auth-buttons a {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+}
+
+</style>
+
+</head>
+<body>
+  <header class="navbar" role="banner">
+    <div class="logo">ReadAble</div>
+    <nav aria-label="Main navigation"></nav>
+    <div class="auth-buttons">
+      <a href="login.html" class="login">Login</a>
+      <a href="signup.html" class="start-free">Start for Free</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="content-box">
+      <section id="how-it-works">
+        <h2>How It Works</h2>
+        <ol>
+          <li><strong>Step 1:</strong> <em>Take the Diagnostic Quiz</em> — Identify your specific reading challenges.</li>
+          <li><strong>Step 2:</strong> <em>Receive a Tailored Training Plan</em> — Get a custom reading plan based on your quiz results.</li>
+          <li><strong>Step 3:</strong> <em>Engage with Focused Practice Exercises</em> — Improve your reading through targeted exercises.</li>
+          <li><strong>Step 4:</strong> <em>Use Supportive Tools</em> — Access tools like audio assistance, overlays, and animations to help you practice.</li>
+          <li><strong>Step 5:</strong> <em>Track Your Progress</em> — Monitor your improvements with progress tracking features.</li>
+        </ol>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
