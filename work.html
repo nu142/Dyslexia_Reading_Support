@@ -9,26 +9,25 @@
   body {
     font-family: 'OpenDyslexic', Arial, sans-serif;
     margin: 0;
-  background: linear-gradient(135deg,#4a47a3,#4a47a390); 
-    color: #333;
+    background: linear-gradient(135deg, #f4f4f9, #2a3d66); 
+    color: #333333;
   }
 
   .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg,#fff7e6,#fff7e6ce); 
+    background: linear-gradient(135deg, #ffffff, #e6ecf7); 
     padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap;
   }
 
   .logo {
-  font-size: 28px;
-  font-weight: bold;
-  color: #4a47a3;
-}
-
+    font-size: 28px;
+    font-weight: bold;
+    color: #2a3d66;
+  }
 
   main {
     display: flex;
@@ -39,16 +38,16 @@
 
   .content-box {
     max-width: 700px;
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   }
 
   h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #222;
+    color: #2a3d66;
   }
 
   ol {
@@ -61,63 +60,61 @@
   }
 
   .auth-buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.auth-buttons a {
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px 16px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.login {
-  background-color: transparent;
-  color: #4a47a3;
-  border: 2px solid #4a47a3;
-}
-
-.login:hover {
-  background-color: #4a47a3;
-  color: white;
-}
-
-.start-free {
-  background-color: #00b894;
-  color: white;
-  border: 2px solid #00b894;
-}
-
-.start-free:hover {
-  background-color: white;
-  color: #00b894;
-}
-
-  /* ✅ Media Query for small screens */
-/* ✅ Media Query to reduce size and keep top-right alignment */
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .auth-buttons {
-    margin-left: auto;
-    gap: 0.3rem;
+    display: flex;
+    gap: 0.5rem;
   }
 
   .auth-buttons a {
-    font-size: 0.75rem;
-    padding: 6px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
   }
-}
 
+  .login {
+    background-color: transparent;
+    color: #2a3d66;
+    border: 2px solid #2a3d66;
+  }
+
+  .login:hover {
+    background-color: #2a3d66;
+    color: white;
+  }
+
+  .start-free {
+    background-color: #4caf50;
+    color: white;
+    border: 2px solid #4caf50;
+  }
+
+  .start-free:hover {
+    background-color: white;
+    color: #4caf50;
+  }
+
+  @media (max-width: 600px) {
+    .navbar {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .auth-buttons {
+      margin-left: auto;
+      gap: 0.3rem;
+    }
+
+    .auth-buttons a {
+      font-size: 0.75rem;
+      padding: 6px 10px;
+    }
+  }
 </style>
+
 
 </head>
 <body>

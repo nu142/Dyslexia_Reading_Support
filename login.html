@@ -5,123 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login | ReadAble</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Dyslexic&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      position: relative;
-      margin: 0 0 0 0;
-      font-family: 'Open Dyslexic', Arial, sans-serif;
-      background: linear-gradient(135deg, #4a47a3,#f7f6f0); 
-      color: #1a1a1a;
-      font-size: 18px;
-    
-    }
-
-    .login-section {
-      background-color:#f3f3f8;
-      padding: 40px 60px;
-      max-width: 400px;
-      margin: 80px  auto  80px auto;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-
-    .login-section h2 {
-      font-size: 26px;
-      margin-bottom: 24px;
-      color: #4a47a3;
-      text-align: center;
-    }
-
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .login-form label {
-      font-size: 17px;
-      font-weight: bold;
-      margin-bottom: 4px;
-      color: #2d3436;
-    }
-
-    .login-form input {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .login-form input:focus {
-      border-color: #4a47a3;
-      outline: none;
-    }
-
-    .btn-primary {
-      background-color: #4a47a3;
-      color: white;
-      text-decoration: none;
-      padding: 14px 24px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-    }
-
-    .error-message {
-      color: red;
-      font-size: 14px;
-      display: none;
-    }
-
-    .helper-links {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 14px;
-    }
-
-    .helper-links a {
-      color: #4a47a3;
-      text-decoration: none;
-      margin-left: 4px;
-    }
-
-    @media (max-width: 600px) {
-
-      
-  .login-section {
-   
-    padding: 30px 20px;
-    width: 50%;
+ <style>
+  body {
+    position: relative;
+    margin: 0;
+    font-family: 'Open Dyslexic', Arial, sans-serif;
+    background: linear-gradient(135deg, #2a3d66, #ffffff); 
+    color: #333333;
+    font-size: 18px;
   }
+
+  .login-section {
+    background-color: #ffffff;
+    padding: 40px 60px;
+    max-width: 400px;
+    margin: 80px auto;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
   .login-section h2 {
-      font-size: 20px;}
-       .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    font-size: 26px;
+    margin-bottom: 24px;
+    color: #2a3d66;
+    text-align: center;
+  }
 
-    .login-form label {
-      font-size: 14px;;
-      font-weight: bold;
-      margin-bottom: 4px;
-      color: #2d3436;
-    }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-    
-
-  .btn-primary {
-    font-size: 10px;
-    padding: 12px 20px;
+  .login-form label {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #2a3d66;
   }
 
   .login-form input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .login-form input:focus {
+    border-color: #4e8af0;
+    outline: none;
+  }
+
+  .btn-primary {
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .error-message {
+    color: red;
     font-size: 14px;
-    padding: 10px;
-  }}
-  </style>
+    display: none;
+  }
+
+  .helper-links {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .helper-links a {
+    color: #4e8af0;
+    text-decoration: none;
+    margin-left: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .login-section {
+      padding: 30px 20px;
+      width: 80%;
+    }
+
+    .login-section h2 {
+      font-size: 20px;
+    }
+
+    .login-form label {
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      font-size: 14px;
+      padding: 12px 20px;
+    }
+
+    .login-form input {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+</style>
+
 </head>
 <body>
   <section class="login-section">
@@ -140,7 +130,7 @@
 
     <div class="helper-links">
       Don't have an account?
-      <a href="/signup">Sign Up</a>
+      <a href='signup.html'>Sign Up</a>
     </div>
   </section>
 
