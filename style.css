@@ -1,8 +1,8 @@
 body {
   margin: 0;
   font-family: 'Open Dyslexic', Arial, sans-serif;
-  background-color: #f7f6f0;
-  color: #1a1a1a;
+  background-color: #f4f4f9;
+  color: #333333;
   font-size: 18px;
   line-height: 1.6;
 }
@@ -12,13 +12,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background-color: #fff7ea;
+  background-color: #2a3d66;
 }
 
 .logo {
   font-size: 28px;
   font-weight: bold;
-  color: #4a47a3;
+  color: #ffffff;
 }
 
 .nav-links {
@@ -30,7 +30,7 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -48,11 +48,11 @@ body {
 
 .login {
   background-color: transparent;
-  color: #4a47a3;
+  color: #ffeb3b;
 }
 
 .start-free {
-  background-color: #00b894;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -66,12 +66,12 @@ body {
 
 .hero-content h1 {
   font-size: 34px;
-  color: #2d1e2f;
+  color: #2a3d66;
   text-align: left;
 }
 
 .hero-content span {
-  color: #6c5ce7;
+  color: #4e8af0;
 }
 
 .hero-content p {
@@ -94,13 +94,13 @@ body {
 }
 
 .btn-primary {
-  background-color: #00b894;
+  background-color: #4caf50;;
   color: white;
 }
 
 .btn-secondary {
-  background-color: #dfe6e9;
-  color: #2d3436;
+  background-color: #e0e0e0;
+  color: #2a3d66;
 }
 
 .hero-visuals {
@@ -113,52 +113,51 @@ body {
   width: 350px;
   height: 350px;
   border-radius: 50%;
-  
 }
 
 .middle-icon {
   top: -180px;
-  left: -490px; /*middle*/
+  left: -490px;
 }
 
 .bottom-icon {
   top: -100px;
-  left:  -300px; /* moved right */
+  left: -300px;
 }
 
-
 .top-icon {
- top: -310px;
+  top: -310px;
   left: -280px;
 }
 
 /* Modal Styles */
 .modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; 
-  background-color: rgba(0, 0, 0, 0.5); 
-backdrop-filter: blur(6px);
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 5% auto; 
+  background-color: #ffffff;
+  margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; 
+  width: 80%;
   max-width: 600px;
   border-radius: 8px;
-  font-size:15px;
+  font-size: 15px;
   font-family: 'OpenDyslexic', Arial, sans-serif;
 }
+
 .modal-content a {
-  color: #4a47a3;;
+  color: #4e8af0;
   text-decoration: underline;
   font-weight: bold;
   transition: color 0.3s ease, background-color 0.3s ease;
@@ -166,8 +165,8 @@ backdrop-filter: blur(6px);
 
 .modal-content a:hover,
 .modal-content a:focus {
-  color: #fff;
-  background-color: #4a47a3;
+  color: white;
+  background-color: #4e8af0;
   text-decoration: none;
   padding: 1px 1px;
   border-radius: 4px;
@@ -175,14 +174,13 @@ backdrop-filter: blur(6px);
 }
 
 .modal-content a:visited {
-  color: #7a2f8f;
+  color: #2a3d66;
 }
 
 .modal-content a:active {
-  color: #fff;
-  background-color: #4a47a3;
+  color: white;
+  background-color: #4e8af0;
 }
-
 
 .close-btn {
   color: #aaa;
@@ -197,8 +195,29 @@ backdrop-filter: blur(6px);
   text-decoration: none;
   cursor: pointer;
 }
+
 /* Tablet Screens */
 @media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  .auth-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
   .hero {
     flex-direction: column;
     padding: 40px 30px;
@@ -207,6 +226,7 @@ backdrop-filter: blur(6px);
 
   .hero-content {
     max-width: 100%;
+    text-align: center;
   }
 
   .hero-content h1 {
@@ -218,7 +238,7 @@ backdrop-filter: blur(6px);
   }
 
   .hero-visuals {
-    margin-top: 40px;
+    margin-top: 30px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -236,15 +256,15 @@ backdrop-filter: blur(6px);
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-center;
     padding: 20px;
   }
 
   .nav-links {
     flex-direction: row;
-    gap: 15px;
-    margin-top: 15px;
-    font-size: small;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 16px;
   }
 
   .auth-buttons {
@@ -255,13 +275,17 @@ backdrop-filter: blur(6px);
   }
 
   .login, .start-free {
-    width: 80%;
-    margin: 20px;
+    width: 100%;
     text-align: center;
+    margin: 5px 0;
   }
 
   .hero-content h1 {
     font-size: 24px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
   }
 
   .btn-primary, .btn-secondary {

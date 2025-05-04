@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dyslexia Results</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
+
+        /* Reset and base */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'OpenDyslexic', sans-serif;
+            background: #f4f4f9;
+            color: #333333;
+            font-size: 18px;
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #2a3d66;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            color: white;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: white;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #ffeb3b;
+        }
+
+        /* Main content container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2a3d66;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #2a3d66;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(42, 61, 102, 0.1);
+            border-left: 4px solid #4e8af0;
+        }
+        .result-card h3 {
+            margin-top: 0;
+            color: #2a3d66;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .result-card p {
+            margin: 10px 0;
+            max-width: 70ch;
+            color: #333333;
+        }
+        .result-card button {
+            background: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'OpenDyslexic', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .result-card button:hover:not(:disabled) {
+            background: #3d8b40;
+        }
+        .result-card button:disabled {
+            background: #a5aacc;
+            color: #f4f4f9;
+            cursor: not-allowed;
+        }
+
+        .speaker {
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-left: 8px;
+            color: #4e8af0;
+            transition: all 0.2s ease;
+        }
+        .speaker:hover {
+            color: #3a7ae0;
+        }
+
+        /* Accessibility focus states */
+        button:focus, a:focus, .speaker:focus {
+            outline: 3px solid #ffeb3b;
+            outline-offset: 2px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .container {
+                padding: 15px;
+            }
+            .result-card {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .intro {
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 400px) {
+            body {
+                font-size: 16px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .result-card h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">ReadAble</div>
+        <ul class="nav-links">
+            <li><a href="quiz.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h1>Your Results</h1>
+        <p class="intro" id="intro">We're checking your quiz and reading results...</p>
+        <div id="results-container"></div>
+    </div>
+
+    <script>
+        // Text-to-speech function
+        let speechSynthesisUtterance;
+        function speak(text) {
+            if (speechSynthesisUtterance) {
+                window.speechSynthesis.cancel();
+            }
+            speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speechSynthesisUtterance);
+        }
+
+        // Combine quiz and reading scores
+        function combineScores() {
+            const quizScores = JSON.parse(localStorage.getItem('quizScores')) || {
+                auditory: 0,
+                phonological: 0,
+                visual: 0,
+                math: 0,
+                memory: 0
+            };
+            const readingScores = JSON.parse(localStorage.getItem('readingScores')) || {
+                auditory: 1,
+                phonological: 1,
+                visual: 1,
+                math: 1,
+                memory: 1
+            };
+
+            // Maximum scores for quiz
+            const quizMaxScores = {
+                auditory: 3,
+                phonological: 3,
+                visual: 12,
+                math: 6,
+                memory: 6
+            };
+
+            // Maximum scores for reading (math is 1, others are 3)
+            const readingMaxScores = {
+                auditory: 3,
+                phonological: 3,
+                visual: 3,
+                math: 1,
+                memory: 3
+            };
+
+            // Normalize and combine scores
+            const combinedScores = {};
+            for (const category of ['auditory', 'phonological', 'visual', 'math', 'memory']) {
+                const quizNormalized = quizScores[category] / quizMaxScores[category];
+                const readingNormalized = readingScores[category] / readingMaxScores[category];
+                combinedScores[category] = (quizNormalized + readingNormalized) / 2;
+            }
+
+            return combinedScores;
+        }
+
+        // Determine areas needing improvement
+        function getAreasNeedingImprovement(combinedScores) {
+            const areas = [];
+            const threshold = 0.6; // Need improvement if score > 60%
+            for (const [category, score] of Object.entries(combinedScores)) {
+                if (score > threshold) {
+                    areas.push(category);
+                }
+            }
+            return areas;
+        }
+
+        // Map categories to learning path files
+        const learningPathMap = {
+            auditory: 'Auditoryd.html',
+            phonological: 'Phonologyd.html',
+            visual: 'Visuald.html',
+            math: 'Mathsd.html',
+            memory: 'Memoryd.html'
+        };
+
+        // Generate layman-friendly results
+        function displayResults() {
+            const combinedScores = combineScores();
+            const areasNeedingImprovement = getAreasNeedingImprovement(combinedScores);
+            const resultsContainer = document.getElementById('results-container');
+            let introText = '';
+            let speechText = '';
+
+            // Define layman-friendly descriptions
+            const areaDescriptions = {
+                auditory: {
+                    name: 'Hearing and Understanding Words',
+                    description: 'You might find it tricky to hear words clearly or follow spoken instructions.',
+                    suggestion: 'Try listening to audio books or practicing with sound games to make hearing words easier.'
+                },
+                phonological: {
+                    name: 'Breaking Down Words',
+                    description: 'You may have trouble sounding out words or splitting them into smaller parts.',
+                    suggestion: 'Practice reading aloud or play word games to help with sounding out words.'
+                },
+                visual: {
+                    name: 'Seeing and Recognizing Words',
+                    description: 'Words or letters might look mixed up, blurry, or hard to follow on the page.',
+                    suggestion: 'Use colored overlays or tracking tools to make reading clearer and more comfortable.'
+                },
+                math: {
+                    name: 'Working with Numbers',
+                    description: 'Numbers or math tasks like counting or telling time might feel challenging.',
+                    suggestion: 'Try using number blocks or visual charts to make math easier to understand.'
+                },
+                memory: {
+                    name: 'Remembering What You Read',
+                    description: 'It might be hard to remember what you just read or keep instructions in mind.',
+                    suggestion: 'Try reading small parts at a time or using memory tricks like repeating words.'
+                }
+            };
+
+            // Case 1: No improvement needed
+            if (areasNeedingImprovement.length === 0) {
+                introText = '🎉 You’re doing great! Your quiz and reading results show you’re doing well. You can choose any area to practice and get even better!';
+                speechText = 'You’re doing great! Your results show you’re doing well. Choose any area to practice.';
+                resultsContainer.innerHTML = Object.entries(areaDescriptions)
+                    .map(([category, { name, description, suggestion }]) => `
+                        <div class="result-card">
+                            <h3>${name} <span class="speaker" onclick="speak('${name}. ${description} ${suggestion}')">🔊</span></h3>
+                            <p>${description}</p>
+                            <p><strong>Try this:</strong> ${suggestion}</p>
+                            <button onclick="window.location.href='${learningPathMap[category]}'">Work on This</button>
+                        </div>
+                    `)
+                    .join('');
+            }
+            // Case 2: Some or all areas need improvement
+            else {
+                introText = areasNeedingImprovement.length === 5
+                    ? 'Here are some areas where you can improve based on your quiz and reading results. Don’t worry, we’ll help you get better!'
+                    : 'Here are the areas where you can improve based on your quiz and reading results. Let’s work on these together!';
+                speechText = introText;
+                resultsContainer.innerHTML = areasNeedingImprovement
+                    .map(category => {
+                        const { name, description, suggestion } = areaDescriptions[category];
+                        return `
+                            <div class="result-card">
+                                <h3>${name} <span class="speaker" onclick="speak('${name}. ${description} ${suggestion}')">🔊</span></h3>
+                                <p>${description}</p>
+                                <p><strong>Try this:</strong> ${suggestion}</p>
+                                <button onclick="window.location.href='${learningPathMap[category]}'">Work on This</button>
+                            </div>
+                        `;
+                    })
+                    .join('');
+            }
+
+            document.getElementById('intro').textContent = introText;
+            speak(speechText);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('quizScores') || !localStorage.getItem('readingScores')) {
+                document.getElementById('intro').textContent = 'No results found. Please complete the quiz and reading test first.';
+                speak('No results found. Please complete the quiz and reading test first.');
+                return;
+            }
+            displayResults();
+        });
+    </script>
+</body>
+</html>

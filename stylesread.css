@@ -1,237 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
+
+/* Reset and base */
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
-  font-family: 'OpenDyslexic', Arial, sans-serif;
-  background-color: #f7f6f0;
-  color: #1a1a1a;
+  font-family: 'OpenDyslexic', sans-serif;
+  background: #f4f4f9;
+  color: #333333;
   font-size: 18px;
   line-height: 1.6;
+  letter-spacing: 0.05em;
 }
 
+/* Navbar (header equivalent) */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
-  background-color: #fff7ea;
+  padding: 15px 20px;
+  background: #2a3d66;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  color: white;
 }
-
 .logo {
   font-size: 28px;
-  font-weight: bold;
-  color: #4a47a3;
+  font-weight: 600;
+  color: white;
 }
-
 .nav-links {
   list-style: none;
   display: flex;
   gap: 25px;
   padding: 0;
+  margin: 0;
 }
-
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: white;
   font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
 }
-
+.nav-links a:hover {
+  color: #ffeb3b;
+}
 .auth-buttons {
   display: flex;
   gap: 15px;
 }
-
 .sign-in, .start-free {
   text-decoration: none;
-  padding: 10px 16px;
-  font-weight: bold;
+  padding: 8px 14px;
+  font-weight: 600;
   border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
-
 .sign-in {
-  background-color: transparent;
-  color: #4a47a3;
+  background: transparent;
+  color: #ffeb3b;
 }
-
+.sign-in:hover {
+  color: #d4cc33;
+}
 .start-free {
-  background-color: #00b894;
+  background: #4caf50;
   color: white;
 }
+.start-free:hover {
+  background: #3d8b40;
+}
 
+/* Main content container */
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 20px;
 }
 
+/* Reading assessment container */
 .reading-container {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(42, 61, 102, 0.1);
+  border: 1px solid #e0e0e0;
   margin-top: 20px;
 }
-
 .reading-container h1 {
-  color: #2d1e2f;
+  color: #2a3d66;
   text-align: center;
-  margin-bottom: 30px;
   font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
+/* Instructions section */
 .instructions {
-  background-color: #fff7ea;
-  padding: 20px 25px;
+  background: #f4f4f9;
+  padding: 20px;
   border-radius: 8px;
-  margin-bottom: 25px;
-  border-left: 4px solid #4a47a3;
+  margin-bottom: 20px;
+  border-left: 4px solid #4e8af0;
 }
-
 .instructions h3 {
   margin-top: 0;
-  color: #4a47a3;
+  color: #2a3d66;
   font-size: 20px;
+  font-weight: 600;
 }
-
 .instructions ol {
   padding-left: 25px;
   margin-bottom: 15px;
 }
-
 .instructions li {
   margin-bottom: 8px;
   line-height: 1.5;
+  color: #333333;
 }
-
 .instructions strong {
-  color: #4a47a3;
+  color: #4e8af0;
 }
-
 .instructions .tip {
   margin-top: 15px;
   margin-bottom: 0;
   font-weight: 600;
   font-style: italic;
-  color: #00b894;
+  color: #4caf50;
 }
 
+/* Reading passage */
 .reading-passage {
-  background-color: #f9f9f5;
-  padding: 25px;
+  background: #f4f4f9;
+  padding: 20px;
   border-radius: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 22px;
   line-height: 1.8;
   letter-spacing: 0.5px;
   word-spacing: 6px;
   text-align: left;
+  max-width: 70ch;
 }
 
+/* Controls (buttons) */
 .controls {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
   justify-content: center;
 }
-
 .btn-primary, .btn-secondary, .btn-submit {
-  padding: 14px 24px;
+  padding: 12px 24px;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   font-size: 18px;
-  font-family: 'OpenDyslexic', Arial, sans-serif;
+  font-family: 'OpenDyslexic', sans-serif;
   transition: all 0.3s ease;
 }
-
 .btn-primary {
-  background-color: #4a47a3;
+  background: #4e8af0;
   color: white;
 }
-
-.btn-primary:hover {
-  background-color: #3c3984;
+.btn-primary:hover:not(:disabled) {
+  background: #3a7ae0;
 }
-
 .btn-secondary {
-  background-color: #dfe6e9;
-  color: #2d3436;
-}
-
-.btn-secondary:hover {
-  background-color: #c8d6db;
-}
-
-.btn-submit {
-  background-color: #00b894;
+  background: #4caf50;
   color: white;
 }
-
-.btn-submit:hover {
-  background-color: #00a382;
+.btn-secondary:hover:not(:disabled) {
+  background: #3d8b40;
 }
-
+.btn-submit {
+  background: #4caf50;
+  color: white;
+}
+.btn-submit:hover:not(:disabled) {
+  background: #3d8b40;
+}
 button:disabled {
-  opacity: 0.6;
+  background: #a5aacc;
+  color: #f4f4f9;
   cursor: not-allowed;
 }
 
+/* Status indicator */
 .status {
   text-align: center;
   margin: 15px 0;
   font-style: italic;
-  color: #666;
+  color: #333333;
   min-height: 25px;
+  font-size: 16px;
 }
 
+/* Transcript section */
 .transcript-container {
-  margin-top: 40px;
+  margin-top: 30px;
 }
-
 .transcript-container h2 {
-  color: #2d1e2f;
+  color: #2a3d66;
+  font-weight: 600;
   margin-bottom: 15px;
+  font-size: 24px;
 }
-
 .transcript {
-  background-color: #f9f9f5;
+  background: #f4f4f9;
   padding: 20px;
   border-radius: 8px;
   min-height: 150px;
-  border: 1px solid #ddd;
+  border: 1px solid #e0e0e0;
   font-size: 20px;
   line-height: 1.8;
   letter-spacing: 0.5px;
   word-spacing: 6px;
+  max-width: 70ch;
 }
-
 .transcript-placeholder {
-  color: #888;
+  color: #666;
   font-style: italic;
 }
 
-p, .transcript, .reading-passage {
-  max-width: 70ch;
+/* Accessibility focus states */
+button:focus, a:focus {
+  outline: 3px solid #ffeb3b;
+  outline-offset: 2px;
 }
 
+/* Responsive design */
 @media (max-width: 768px) {
   .navbar {
-      flex-direction: column;
-      gap: 15px;
-      padding: 20px 20px;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
   }
-  
   .nav-links {
-      width: 100%;
-      justify-content: center;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
   }
-  
   .auth-buttons {
-      width: 100%;
-      justify-content: center;
+    width: 100%;
+    justify-content: center;
   }
-  
+  .container {
+    padding: 15px;
+  }
+  .reading-container {
+    padding: 15px;
+  }
   .reading-passage {
-      font-size: 20px;
-      padding: 20px;
+    font-size: 20px;
+    padding: 15px;
+  }
+  .btn-primary, .btn-secondary, .btn-submit {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 400px) {
+  body {
+    font-size: 16px;
+  }
+  .reading-container h1 {
+    font-size: 28px;
+  }
+  .instructions h3 {
+    font-size: 18px;
+  }
+  .transcript-container h2 {
+    font-size: 22px;
   }
 }
