@@ -177,6 +177,103 @@
                 font-size: 20px;
             }
         }
+        /* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.sidebar h2, .sidebar h3 {
+    color: #2a3d66;
+    margin-bottom: 10px;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.badge-icon {
+    width: 60px;
+    height: auto;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #2a3d66;
+    float: right;
+    cursor: pointer;
+}
+/* Popup Styles */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1100;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 320px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.popup-box h3 {
+    color: #2a3d66;
+    margin-bottom: 15px;
+}
+
+.badge-icon-large {
+    width: 100px;
+    height: auto;
+    margin-top: 10px;
+}
+
+/* Button styling */
+.badge-popup-btn,
+.change-pass-btn {
+    background-color: #4e8af0;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'OpenDyslexic', sans-serif;
+}
+
+.badge-popup-btn:hover,
+.change-pass-btn:hover {
+    background-color: #3a6edc;
+}
+
+
     </style>
 </head>
 <body>
@@ -186,7 +283,8 @@
             <li><a href="quiz.html">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Resources</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="javascript:void(0)" onclick="toggleSidebar()">Contact</a></li>
+
         </ul>
     </div>
 
@@ -361,5 +459,57 @@
             displayResults();
         });
     </script>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">×</button>
+        <div class="sidebar-content">
+            <h2>👤 Your Profile</h2>
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Username:</strong> johndoe123</p>
+            <p><strong>Date of Birth:</strong> 2000-01-01</p>
+    
+            <p><strong>Badge:</strong> 
+                <button class="badge-popup-btn" onclick="showBadgePopup()">View Badge</button>
+            </p>
+    
+            <p><strong>Password:</strong>
+                <button class="change-pass-btn" onclick="changePassword()">Change Password</button>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Badge Popup -->
+    <div id="badgePopup" class="popup-overlay">
+        <div class="popup-box">
+            <button class="close-btn" onclick="closeBadgePopup()">×</button>
+            <h3>🏅 Your Badge</h3>
+            <img src="badge1.svg" alt="Level 1 Badge" class="badge-icon-large">
+        </div>
+    </div>
+    
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+        
+    }
+    function showBadgePopup() {
+    document.getElementById('badgePopup').style.display = 'flex';
+}
+
+function closeBadgePopup() {
+    document.getElementById('badgePopup').style.display = 'none';
+}
+
+function changePassword() {
+    const newPassword = prompt("Enter your new password:");
+    if (newPassword) {
+        alert("Password changed successfully (simulated).");
+        // Here you’d send the new password to the backend (if connected)
+    }
+}
+</script>
+
+
 </body>
 </html>

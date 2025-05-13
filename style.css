@@ -1,6 +1,10 @@
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/otf/OpenDyslexic-Regular.otf') format('opentype');
+}
 body {
   margin: 0;
-  font-family: 'Open Dyslexic', Arial, sans-serif;
+  font-family: 'OpenDyslexic', Arial, sans-serif;
   background-color: #f4f4f9;
   color: #333333;
   font-size: 18px;

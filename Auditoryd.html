@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Auditory Dyslexia Training</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
-
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/otf/OpenDyslexic-Regular.otf') format('opentype');
+  }
   * {
     box-sizing: border-box;
   }
@@ -257,7 +259,9 @@
       <div style="display:flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;" id="word-options-1"></div>
       <div class="result" id="result-1"></div>
       <button class="btn-next" id="next-btn-1" disabled>Next Question</button>
-      <div class="badge" id="badge-1"></div>
+      <div class="badge" id="badge-1">
+        your score will be displayed here
+      </div>
     </div>
   </section>
   <section id="level-content-2" style="display:none;">
@@ -376,6 +380,7 @@
       <h2>Congratulations! 🎉</h2>
       <p>You've completed all levels!</p>
       <p>Redirecting to completion page...</p>
+      <p> You Are earning a badge</p>
     `;
     document.body.appendChild(completionDiv);
     
