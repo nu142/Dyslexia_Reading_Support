@@ -1,0 +1,25 @@
+{
+  "name": "dyslexia_reading_support_22105_22106_22111",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nu142/Dyslexia_Reading_Support.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nu142/Dyslexia_Reading_Support/issues"
+  },
+  "homepage": "https://github.com/nu142/Dyslexia_Reading_Support#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
