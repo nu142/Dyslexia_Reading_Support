@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Phonological Dyslexia Training</title>
+  <style>
+    @font-face {
+      font-family: 'OpenDyslexic';
+      src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/otf/OpenDyslexic-Regular.otf') format('opentype');
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'OpenDyslexic', sans-serif;
+      background: #f4f4f9;
+      color: #333333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+    }
+    header {
+      background: #2a3d66;
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      color: white;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      margin: 20px auto;
+      box-shadow: 0 4px 20px rgba(42, 61, 102, 0.1);
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #question-container {
+      width: 100%;
+      text-align: center;
+    }
+    .option-btn {
+      background: #4e8af0;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 12px 18px;
+      cursor: pointer;
+      margin: 8px 0;
+      width: 100%;
+      transition: all 0.25s ease;
+      letter-spacing: 0.05em;
+    }
+    .option-btn:hover:not(:disabled) { background: #3a7ae0; }
+    #next-btn {
+      margin-top: 20px;
+      background: #4caf50;
+      color: white;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 12px 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      letter-spacing: 0.05em;
+      display: none;
+    }
+    #next-btn:disabled { background: #a5aacc; cursor: default; }
+    .audio-btn {
+      background: #4caf50;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      transition: all 0.2s ease;
+    }
+    .audio-btn:hover { transform: scale(1.1); }
+    @media (max-width: 600px) {
+      main { margin: 10px auto; padding: 15px; }
+      .option-btn { font-size: 1rem; padding: 10px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Phonological Dyslexia Trainer</h1>
+  </header>
+  <main>
+    <div id="question-container">
+      Loading questions...
+    </div>
+    <!-- <button class="audio-btn" id="audio-btn">🔊</button> -->
+    <button id="next-btn">Next</button>
+  </main>
+
+  <script>
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let currentLevel = 1;
+    const maxLevel = 3;
+  
+    let wrongQuestions = [];
+    let turnCount = 0;
+    let consecutiveCorrect = 0;
+  
+    async function fetchQuestionsFromServer(level = 1) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/dyslexia-questions?type=phonological&level=${level}`);
+        questions = await response.json();
+        currentQuestionIndex = 0;
+        wrongQuestions = [];
+        turnCount = 0;
+        consecutiveCorrect = 0;
+        displayQuestion();
+      } catch (error) {
+        document.getElementById("question-container").innerText = "Failed to load questions.";
+        console.error("Error fetching questions:", error);
+      }
+    }
+  
+    function displayQuestion() {
+      const container = document.getElementById("question-container");
+      document.getElementById("next-btn").style.display = "none";
+  
+      if (currentQuestionIndex < questions.length) {
+        const q = questions[currentQuestionIndex];
+        container.innerHTML = `
+          <h2>Level ${currentLevel}</h2>
+          <button class="audio-btn" onclick="readAloud('${q.question.replace(/'/g, "\\'")}')">🔊 </button>
+          <p>${q.question}</p>
+          ${q.options.map(opt => `<button class="option-btn" onclick="checkAnswer('${opt}')">${opt}</button>`).join("")}
+        `;
+      } else if (wrongQuestions.length > 0) {
+        questions.push(wrongQuestions.shift());
+        displayQuestion();
+      } else {
+        finishLevel();
+      }
+    }
+  
+    function checkAnswer(selected) {
+      const correct = questions[currentQuestionIndex].correct;
+      const currentQ = questions[currentQuestionIndex];
+  
+      if (selected === correct) {
+        // alert("✅ Correct!");
+        consecutiveCorrect++;
+      } else {
+        alert(`❌ Oops! The correct answer is ${correct}.`);
+        wrongQuestions.push(currentQ);
+        consecutiveCorrect = 0;
+      }
+  
+      // ✅ Mastery condition
+      if (consecutiveCorrect >= 5) {
+        alert("🎉 Great job! You answered 5 in a row correctly. Moving to next level!");
+        finishLevel();
+        return;
+      }
+  
+      document.getElementById("next-btn").style.display = "inline-block";
+    }
+  
+    function loadNextQuestion() {
+      currentQuestionIndex++;
+      turnCount++;
+  
+      if (turnCount % 3 === 0 && wrongQuestions.length > 0) {
+        questions.splice(currentQuestionIndex, 0, wrongQuestions.shift());
+      }
+  
+      displayQuestion();
+    }
+  
+    function finishLevel() {
+  
+      if (currentLevel < maxLevel) {
+        document.getElementById("question-container").innerHTML = `
+          <p>✅ You've completed Level ${currentLevel}.</p>
+          <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>
+        `;
+      } else {
+        document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You’ve completed all levels!</p>`;
+      }
+    }
+  
+    function goToNextLevel() {
+      currentLevel++;
+      fetchQuestionsFromServer(currentLevel);
+    }
+  
+    function readAloud(text) {
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      utterance.lang = 'en-US';
+      synth.speak(utterance);
+    }
+  
+    window.onload = () => {
+      document.getElementById("next-btn").onclick = loadNextQuestion;
+      fetchQuestionsFromServer(currentLevel);
+    };
+  </script>
+  
+</body>
+</html>

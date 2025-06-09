@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visual Dyslexia Question Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f2f2f2;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #question {
+      margin-top: 20px;
+      font-size: 18px;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Generate Visual Dyslexia Training Question</h1>
+  <button onclick="generateQuestion()">Generate</button>
+  <div id="question"></div>
+
+  <script>
+    async function generateQuestion() {
+      document.getElementById("question").innerText = "Loading...";
+
+      try {
+        const response = await fetch("/api/questions/visual", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        const data = await response.json();
+        document.getElementById("question").innerText = data.question || "No question generated.";
+      } catch (err) {
+        document.getElementById("question").innerText = "Error: " + err.message;
+      }
+    }
+  </script>
+
+</body>
+</html>

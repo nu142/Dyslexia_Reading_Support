@@ -147,7 +147,8 @@
 
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
-
+    console.log("Username:", username);
+    console.log("Password:", password); // for debugging
     if (!username || !password) {
       loginError.textContent = 'Please enter both username and password.';
       loginError.style.display = 'block';
@@ -156,8 +157,8 @@
 // console.log("Username:", username); 
 // console.log(password);// for debugging
     // Get stored user data directly here
-    const storedData = JSON.parse(localStorage.getItem('readableUser')) || null;
-    // console.log("Stored Data:", storedData); // for debugging
+    const storedData = JSON.parse(localStorage.getItem('userData')) || null;
+    console.log("Stored Data:", storedData); // for debugging
 
     // Validate login
     if (storedData && storedData.username === username && storedData.password === password) {
