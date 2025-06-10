@@ -85,6 +85,23 @@
       cursor: pointer;
       display: none;
     }
+    .audio-btn {
+      background: #4caf50;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      transition: all 0.2s ease;
+    }
+    .audio-btn:hover { transform: scale(1.1); }
+    
 
     @media (max-width: 600px) {
       main {
@@ -110,12 +127,12 @@
     let currentQuestionIndex = 0;
     let currentLevel = 1;
     const maxLevel = 3;
-
+  
     let wrongQuestions = [];
     let turnCount = 0;
     let consecutiveCorrect = 0;
-
-    async function fetchQuestionsFromServer(level) {
+  
+    async function fetchQuestionsFromServer(level = 1) {
       try {
         const response = await fetch(`http://localhost:3000/api/dyslexia-questions?type=auditory&level=${level}`);
         questions = await response.json();
@@ -129,88 +146,118 @@
         console.error("Error fetching questions:", error);
       }
     }
-
+  
     function displayQuestion() {
       const container = document.getElementById("question-container");
-
+      // document.getElementById("next-btn").style.display = "none";
+  
       if (currentQuestionIndex < questions.length) {
         const q = questions[currentQuestionIndex];
         container.innerHTML = `
           <h2>Level ${currentLevel}</h2>
-          <button class="option-btn" onclick="readAloud('${q.question.replace(/'/g, "\\'")}')">🔊 Listen to Question</button>
+          <button class="audio-btn" onclick="readAloud('${q.question.replace(/'/g, "\\'")}')">🔊 </button>
           <p>${q.question}</p>
-          <p>${q.symbol || ''}</p>
           ${q.options.map(opt => `<button class="option-btn" onclick="checkAnswer('${opt}')">${opt}</button>`).join("")}
         `;
-        document.getElementById("next-btn").style.display = "none";
+      } else if (wrongQuestions.length > 0) {
+        questions.push(wrongQuestions.shift());
+        displayQuestion();
       } else {
-        if (wrongQuestions.length > 0) {
-          questions.push(wrongQuestions.shift());
-          displayQuestion();
-        } else {
-          finishLevel();
-        }
-        document.getElementById("next-btn").style.display = "none";
+        finishLevel();
       }
     }
-
-    function readAloud(text) {
-      const synth = window.speechSynthesis;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9;
-      utterance.pitch = 1;
-      utterance.lang = 'en-US';
-      synth.speak(utterance);
-    }
-
+  
     function checkAnswer(selected) {
-      const correct = questions[currentQuestionIndex].correct;
-      const currentQ = questions[currentQuestionIndex];
+  const correct = questions[currentQuestionIndex].correct;
+  const currentQ = questions[currentQuestionIndex];
 
-      if (selected === correct) {
-        consecutiveCorrect++;
-      } else {
-        alert(`❌ Oops! The correct answer is ${correct}.`);
-        wrongQuestions.push(currentQ);
-        consecutiveCorrect = 0;
-      }
-
+  if (selected === correct) {
+    console.log('correct streak:', consecutiveCorrect);
+    console.log(currentLevel);
+    consecutiveCorrect++;
+    setTimeout(() => {
+      // Mastery condition
       if (consecutiveCorrect >= 5) {
         alert("🎉 Great job! You answered 5 in a row correctly. Moving to next level!");
         finishLevel();
-        return;
+      } else {
+        loadNextQuestion();
       }
-
-      document.getElementById("next-btn").style.display = "inline-block";
-    }
-
+    }, 300); // short delay for feedback
+  } else {
+    alert(`❌ Oops! The answer was wrong.`);
+    wrongQuestions.push(currentQ);
+    consecutiveCorrect = 0;
+    setTimeout(() => {
+      loadNextQuestion();
+    }, 100); // short delay for feedback
+  }
+}
+  
+      
+  
+      // document.getElementById("next-btn").style.display = "inline-block";
+    
+  
     function loadNextQuestion() {
       currentQuestionIndex++;
       turnCount++;
-
+  
       if (turnCount % 3 === 0 && wrongQuestions.length > 0) {
         questions.splice(currentQuestionIndex, 0, wrongQuestions.shift());
       }
-
+  
       displayQuestion();
     }
-
+  
     function finishLevel() {
+  
       if (currentLevel < maxLevel) {
         document.getElementById("question-container").innerHTML = `
           <p>✅ You've completed Level ${currentLevel}.</p>
-          <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>`;
+          <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>
+        `;
       } else {
         document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You’ve completed all levels!</p>`;
+        setTimeout(() => {
+      window.location.href = "home.html";
+    }, 2000); // 2 second delay for user to see the message
       }
     }
-
+  
     function goToNextLevel() {
       currentLevel++;
       fetchQuestionsFromServer(currentLevel);
     }
+  
+    let voices = [];
 
-    window.onload = () => fetchQuestionsFromServer(currentLevel);
+speechSynthesis.onvoiceschanged = () =>
+  voices = speechSynthesis.getVoices();
+
+const getFemaleVoice = () =>
+  voices.find(v =>
+    v.lang.startsWith('en') &&
+    /female|woman|zira/.test(v.name.toLowerCase()) ||
+    (v.gender?.toLowerCase?.() === 'female')
+  );
+
+function readAloud(text) {
+  const utterance = new SpeechSynthesisUtterance(
+    text.replace(/\/\s*/g, ' ').replace(/\s{2,}/g, ' ')
+  );
+  utterance.voice = getFemaleVoice() || null;
+  Object.assign(utterance, { rate: 0.9, pitch: 1, lang: 'en-US' });
+  speechSynthesis.speak(utterance);
+}
+
+
+
+  
+    window.onload = () => {
+  fetchQuestionsFromServer(currentLevel);
+};
   </script>
+  
 </body>
 </html>

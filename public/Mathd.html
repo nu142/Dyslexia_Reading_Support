@@ -187,7 +187,7 @@
       }
     }, 300); // short delay for feedback
   } else {
-    alert(`❌ Oops! The correct answer is ${correct}.`);
+    alert(`❌ Oops! The answer was wrong.`);
     wrongQuestions.push(currentQ);
     consecutiveCorrect = 0;
     setTimeout(() => {
@@ -232,14 +232,27 @@
       fetchQuestionsFromServer(currentLevel);
     }
   
-    function readAloud(text) {
-      const synth = window.speechSynthesis;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9;
-      utterance.pitch = 1;
-      utterance.lang = 'en-US';
-      synth.speak(utterance);
-    }
+    let voices = [];
+
+speechSynthesis.onvoiceschanged = () =>
+  voices = speechSynthesis.getVoices();
+
+const getFemaleVoice = () =>
+  voices.find(v =>
+    v.lang.startsWith('en') &&
+    /female|woman|zira/.test(v.name.toLowerCase()) ||
+    (v.gender?.toLowerCase?.() === 'female')
+  );
+
+function readAloud(text) {
+  const utterance = new SpeechSynthesisUtterance(
+    text.replace(/\/\s*/g, ' ').replace(/\s{2,}/g, ' ')
+  );
+  utterance.voice = getFemaleVoice() || null;
+  Object.assign(utterance, { rate: 0.9, pitch: 1, lang: 'en-US' });
+  speechSynthesis.speak(utterance);
+}
+
   
     window.onload = () => {
   fetchQuestionsFromServer(currentLevel);

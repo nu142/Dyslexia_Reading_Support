@@ -295,15 +295,42 @@
     </div>
 
     <script>
-        // Text-to-speech function
+        // Declare globally
         let speechSynthesisUtterance;
+        let availableVoices = [];
+    
+        // Load voices and trigger voiceschanged event
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = function() {
+            availableVoices = window.speechSynthesis.getVoices();
+        };
+    
+        function getFemaleVoice() {
+            return availableVoices.find(v =>
+                v.lang.startsWith('en') && (
+                    v.name.toLowerCase().includes('female') ||
+                    v.name.toLowerCase().includes('woman') ||
+                    (v.gender && v.gender.toLowerCase() === 'female') ||
+                    v.name.toLowerCase().includes('zira') ||
+                    v.name.toLowerCase().includes('susan') ||
+                    v.name.toLowerCase().includes('samantha')
+                )
+            );
+        }
+    
         function speak(text) {
             if (speechSynthesisUtterance) {
                 window.speechSynthesis.cancel();
             }
             speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+            const femaleVoice = getFemaleVoice();
+            if (femaleVoice) {
+                speechSynthesisUtterance.voice = femaleVoice;
+            }
             window.speechSynthesis.speak(speechSynthesisUtterance);
         }
+    
+    
 
         // Combine quiz and reading scores
         function combineScores() {

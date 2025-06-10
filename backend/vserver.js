@@ -32,58 +32,69 @@ async function getDyslexiaQuestions(type = "visual", level = 1) {
       ? "a bit more difficult, challenging patterns"
       : "very basic and easy";
 
-  const promptMap = {
-    visual: `Generate 10 multiple choice questions for children with visual dyslexia. Each question should ask the user to identify letters or patterns that are visually different. The questions should be ${difficultyPrompt}. Provide the response in the following JSON format:
+      const promptMap = {
+        visual: `Generate 10 multiple choice questions designed for children with visual dyslexia. These questions should focus on visual discrimination—such as distinguishing between similar-looking letters, symbols, or shapes. The questions should be ${difficultyPrompt}. Present questions with one correct answer and three plausible distractors.
+      
+      Provide your response in the following JSON format(make sure to use key like question,symbol,options,correct only):
+      [
+        {
+          "question": "Which symbol matches the one shown?",
+          "symbol": "◊",
+          "options": ["◊", "◇", "∆", "∇"],
+          "correct": "◊"
+        },
+        ...
+      ]`,
 
-[
-  {
-    "question": "check for matching symbols?",
-    "symbol": "◊",
-    "options": ["◊", "◇", "∆", "∇"],
-    "correct": "◊"
-  },
-  ...
-]`,
-    phonological: `Generate 10 phonological awareness questions for dyslexic children...
-    Each question should ask the user to identify sounds or syllables in words. The questions should be ${difficultyPrompt}. Provide the response in the following JSON format:
+        phonological: `Generate 10 multiple choice questions to test phonological awareness in children with dyslexia. These questions should focus on identifying sounds, rhyming patterns, or syllable recognition. Adjust complexity according to this level: ${difficultyPrompt}. Ensure each question has four options with only one correct answer.
+      
+      Use this JSON format:
+      [
+        {
+          "question": "Which word rhymes with 'cat'?",
+          "options": ["Hat", "Dog", "Bus", "Car"],
+          "correct": "Hat"
+        },
+        ...
+      ]`,
 
-[
-  {
-    "question": "What sound does the letter 'B' make?",
-    "options": ["B", "D", "P", "T"],
-    "correct": "B"
-  },
-  ...
-]`,
-    memory: `Generate 10 questions to test short-term memory recall in dyslexic children. Each question should present a short list of items and ask the user to recall them. The questions should be ${difficultyPrompt}. Provide the response in the following JSON format:
+        memory: `Generate 10 short-term memory recall questions suitable for children with dyslexia. At each level of difficulty (${difficultyPrompt}), present a list of 3–5 items that the child must remember. Then ask a question about one item’s position or content. Only one correct answer among four options.
+      
+      make sure the generated question are of the  below format
+      [
+        {"Remember": Apple, Banana, Cherry {
+          "question": "What was the second item?",
+          "options": ["Apple", "Banana", "Cherry", "Mango"],
+          "correct": "Banana"
+        },
+        ...
+      ]`,
 
-[
-  {
-    "question": "Remember these words: apple, banana, cherry. What was the second word?",
-    "options": ["Apple", "Banana", "Cherry", "Date"],
-    "correct": "Banana"
-  },
-  ...
-]`,
-    mathematics: `Generate 10 math-related dyslexia (dyscalculia) multiple choice questions for children. Each question should ask the user to solve simple math problems or identify numbers. The questions should be ${difficultyPrompt}. Provide the response in the following JSON format:
-    [
-      {
-        "question": "What is 2 + 2?",
-        "options": ["3", "4", "5", "6"],
-        "correct": "4"
-      },
-      ...
-    ]`,
-    auditory: `Generate 10 auditory discrimination questions for dyslexic children. Each question should ask the user to identify sounds or words based on auditory cues. The questions should be ${difficultyPrompt}. Provide the response in the following JSON format:
-    [
-      {
-        "question": "What sound does the letter 'A' make?",
-        "options": ["A", "E", "I", "O"],
-        "correct": "A"
-      },
-      ...
-    ]`,
-  };
+        mathematics: `Generate 10 multiple choice questions focused on dyscalculia (math-related dyslexia). The questions should be ${difficultyPrompt} and should cover basic arithmetic, number recognition, or pattern identification. Only one correct answer per question.
+      
+      Respond in this JSON format:
+      [
+        {
+          "question": "What is 5 + 3?",
+          "options": ["6", "7", "8", "9"],
+          "correct": "8"
+        },
+        ...
+      ]`,
+
+        auditory: `Generate 10 auditory discrimination questions for children with dyslexia. Each question should ask the child to identify the correct sound or word based on an auditory cue or spoken instruction. Adjust question difficulty to be ${difficultyPrompt}. Include phonetic or word recognition tasks.
+      
+      Use this response format:
+      [
+        {
+          "question": "Which word begins with the same sound as 'ball'?",
+          "options": ["Bat", "Cat", "Tall", "Dog"],
+          "correct": "Bat"
+        },
+        ...
+      ]`,
+      };
+      
 
   const prompt = promptMap[type.toLowerCase()] || promptMap["visual"];
   console.log(`🔍 Generating ${type} level ${level} questions...`);
