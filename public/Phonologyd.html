@@ -111,7 +111,7 @@
       Loading questions...
     </div>
     <!-- <button class="audio-btn" id="audio-btn">🔊</button> -->
-    <button id="next-btn">Next</button>
+    <!-- <button id="next-btn">Next</button> -->
   </main>
 
   <script>
@@ -141,7 +141,7 @@
   
     function displayQuestion() {
       const container = document.getElementById("question-container");
-      document.getElementById("next-btn").style.display = "none";
+      // document.getElementById("next-btn").style.display = "none";
   
       if (currentQuestionIndex < questions.length) {
         const q = questions[currentQuestionIndex];
@@ -160,27 +160,36 @@
     }
   
     function checkAnswer(selected) {
-      const correct = questions[currentQuestionIndex].correct;
-      const currentQ = questions[currentQuestionIndex];
-  
-      if (selected === correct) {
-        // alert("✅ Correct!");
-        consecutiveCorrect++;
-      } else {
-        alert(`❌ Oops! The correct answer is ${correct}.`);
-        wrongQuestions.push(currentQ);
-        consecutiveCorrect = 0;
-      }
-  
-      // ✅ Mastery condition
+  const correct = questions[currentQuestionIndex].correct;
+  const currentQ = questions[currentQuestionIndex];
+
+  if (selected === correct) {
+    console.log('correct streak:', consecutiveCorrect);
+    console.log(currentLevel);
+    consecutiveCorrect++;
+    setTimeout(() => {
+      // Mastery condition
       if (consecutiveCorrect >= 5) {
         alert("🎉 Great job! You answered 5 in a row correctly. Moving to next level!");
         finishLevel();
-        return;
+      } else {
+        loadNextQuestion();
       }
+    }, 300); // short delay for feedback
+  } else {
+    alert(`❌ Oops! The correct answer is ${correct}.`);
+    wrongQuestions.push(currentQ);
+    consecutiveCorrect = 0;
+    setTimeout(() => {
+      loadNextQuestion();
+    }, 100); // short delay for feedback
+  }
+}
   
-      document.getElementById("next-btn").style.display = "inline-block";
-    }
+      
+  
+      // document.getElementById("next-btn").style.display = "inline-block";
+    
   
     function loadNextQuestion() {
       currentQuestionIndex++;
@@ -202,6 +211,9 @@
         `;
       } else {
         document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You’ve completed all levels!</p>`;
+        setTimeout(() => {
+      window.location.href = "home.html";
+    }, 2000); // 2 second delay for user to see the message
       }
     }
   
@@ -220,9 +232,8 @@
     }
   
     window.onload = () => {
-      document.getElementById("next-btn").onclick = loadNextQuestion;
-      fetchQuestionsFromServer(currentLevel);
-    };
+  fetchQuestionsFromServer(currentLevel);
+};
   </script>
   
 </body>
