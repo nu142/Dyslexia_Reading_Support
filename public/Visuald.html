@@ -55,6 +55,23 @@
       width: 100%;
       text-align: center;
     }
+    .audio-btn {
+      background: #4caf50;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      transition: all 0.2s ease;
+    }
+    .audio-btn:hover { transform: scale(1.1); }
+    
 
     .option-btn {
       background: #4e8af0;
@@ -150,7 +167,7 @@
     // console.log(`Displaying question ${currentQuestionIndex + 1}:`, q);
     container.innerHTML = `
       <h2>Level ${currentLevel}</h2>
-      <button class="option-btn" onclick="readAloud('${q.question.replace(/'/g, "\\'")}')">🔊 Listen to Question</button>
+      <button class="audio-btn" onclick="readAloud('${q.question.replace(/'/g, "\\'")}')">🔊 </button>
       <p>${q.question}</p>
       <p>${escapeHTML(q.symbol || q.letter || q.shape || q.number || q.word || "")}</p>
       
