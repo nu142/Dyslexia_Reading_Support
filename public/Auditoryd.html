@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Auditory Dyslexia Training</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     @font-face {
       font-family: 'OpenDyslexic';
@@ -196,8 +198,50 @@
   
       
   
-      // document.getElementById("next-btn").style.display = "inline-block";
-    
+function fireConfetti() {
+  confetti({
+    particleCount: 300,
+    spread: 100,
+    origin: { y: 0.3 },
+    gravity: 1.7,              // Fast falling
+    ticks: 400,                // Lives longer
+    decay: 0.95,               // Slower fade-out
+    shapes: ['circle'],
+    colors: ['#f7fac5', '#ff6262', '#faa534', '#22b4a1'],
+
+  });
+}
+
+
+let rainInterval;
+
+function startConfettiRain(duration = 5000) {
+  const end = Date.now() + duration;
+
+  rainInterval = setInterval(() => {
+    confetti({
+      particleCount: 5,
+      angle: 90,
+      spread: 15,
+      startVelocity: 20,
+      gravity: 1.5,
+      ticks: 400,                // Lives longer
+    decay: 0.95, 
+      origin: {
+        x: Math.random(),
+        y: 0
+      },
+      colors: ['#f7fac5', '#ff6262', '#faa534', '#22b4a1'],
+      shapes: ['circle'],
+      scalar: 0.8,
+      zIndex: 999
+    });
+
+    if (Date.now() > end) clearInterval(rainInterval);
+  }, 50); // emit every 50ms
+}
+        
+     
   
     function loadNextQuestion() {
       currentQuestionIndex++;
@@ -213,18 +257,19 @@
     function finishLevel() {
   
       if (currentLevel < maxLevel) {
+        startConfettiRain(3000); // Start confetti rain for 5 seconds
         document.getElementById("question-container").innerHTML = `
           <p>✅ You've completed Level ${currentLevel}.</p>
           <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>
         `;
       } else {
         document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You’ve completed all levels!</p>`;
+        fireConfetti(); // Fire confetti for final level completion
         setTimeout(() => {
       window.location.href = "home.html";
-    }, 2000); // 2 second delay for user to see the message
+    }, 5000); // 2 second delay for user to see the message
       }
     }
-  
     function goToNextLevel() {
       currentLevel++;
       fetchQuestionsFromServer(currentLevel);
