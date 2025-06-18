@@ -106,6 +106,162 @@
         padding: 15px;
       }
     }
+
+    /* Loading Animation */
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .loading-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .loading-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4e8af0;
+      animation: loading-bounce 1.4s ease-in-out infinite both;
+    }
+    .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0s; }
+    @keyframes loading-bounce {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* --- Popup Modals --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 18px;
+      max-width: 90vw;
+      width: 340px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      position: relative;
+      animation: bounceIn 0.5s;
+      color: #2a3d66;
+    }
+    /* Error Modal */
+    #error-modal .modal-content { animation: shake 0.4s; }
+    #error-modal .modal-title {
+      color: #ff6262;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+    #error-modal .modal-btn {
+      background: #ff6262;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    #error-modal .modal-btn:hover { background: #e03a3a; }
+    /* Level Modal */
+    #level-modal .modal-content { animation: bounceIn 0.5s; }
+    #level-modal .modal-title {
+      color: #ffd700;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 8px #ffef8e;
+    }
+    #level-modal .modal-btn {
+      background: linear-gradient(90deg, #4caf50 60%, #ffd700 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      box-shadow: 0 2px 8px #ffd70060;
+      transition: background 0.2s;
+    }
+    #level-modal .modal-btn:hover {
+      background: linear-gradient(90deg, #388e3c 60%, #ffd700 100%);
+    }
+    /* Loading Popup Modal */
+    .loading-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .loading-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: bounceIn 0.5s ease;
+    }
+    .loading-modal-title {
+      color: #2a3d66;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .loading-modal-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .loading-modal-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #4e8af0;
+      animation: loading-bounce 1.4s ease-in-out infinite both;
+    }
+    .loading-modal-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-modal-dots span:nth-child(2) { animation-delay: -0.16s; }
+    .loading-modal-dots span:nth-child(3) { animation-delay: 0s; }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-10px); }
+      80% { transform: translateX(10px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      80% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -118,6 +274,36 @@
     </div>
     <!-- <button id="next-btn" onclick="loadNextQuestion()">Next</button> -->
   </main>
+
+  <!-- Error Modal -->
+  <div id="error-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-title">😕</div>
+      <div id="error-message" style="font-size:1.1rem; margin-bottom:1.5rem; color: #2a3d66;"></div>
+      <button id="error-close-btn" class="modal-btn">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Level Modal -->
+  <div id="level-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-title">🏆</div>
+      <div id="level-message" style="font-size:1.15rem; margin-bottom:1.5rem; color: #2a3d66;"></div>
+      <button id="level-close-btn" class="modal-btn">Continue</button>
+    </div>
+  </div>
+
+  <!-- Loading Modal -->
+  <div id="loading-modal" class="loading-modal">
+    <div class="loading-modal-content">
+      <div class="loading-modal-title">Loading Questions</div>
+      <div class="loading-modal-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
 
   <!-- visualdemo.html (only <script> section changed below) -->
     <script>
@@ -164,15 +350,20 @@ window.addEventListener('DOMContentLoaded', () => {
     
       async function fetchQuestionsFromServer(level) {
         try {
+          // Show loading popup
+          showLoadingModal();
           const response = await fetch(`http://localhost:3000/api/dyslexia-questions?type=visual&level=${level}`);
           questions = await response.json();
           currentQuestionIndex = 0;
           wrongQuestions = [];
           turnCount = 0;
           consecutiveCorrect = 0;
+          // Hide loading popup and display question
+          hideLoadingModal();
           displayQuestion();
         } catch (error) {
-          document.getElementById("question-container").innerText = "Failed to load questions.";
+          hideLoadingModal();
+          showErrorModal("Failed to load questions. Please try again later.");
           console.error("Error fetching questions:", error);
         }
       }
@@ -218,27 +409,24 @@ window.addEventListener('DOMContentLoaded', () => {
 function checkAnswer(selected) {
   const correct = questions[currentQuestionIndex].correct;
   const currentQ = questions[currentQuestionIndex];
-
   if (selected === correct) {
-    console.log('correct streak:', consecutiveCorrect);
-    console.log(currentLevel);
     consecutiveCorrect++;
     setTimeout(() => {
-      // Mastery condition
-      if (consecutiveCorrect >= 5) {
-        alert("🎉 Great job! You answered 5 in a row correctly. Moving to next level!");
+      if (consecutiveCorrect >= 2) {
         finishLevel();
       } else {
         loadNextQuestion();
       }
-    }, 300); // short delay for feedback
+    }, 300);
   } else {
-    alert(`❌ Oops! The answer was wrong.`);
-    wrongQuestions.push(currentQ);
-    consecutiveCorrect = 0;
-    setTimeout(() => {
-      loadNextQuestion();
-    }, 100); // short delay for feedback
+    showErrorModal(
+      `❌ <b>Oops!</b> That answer was wrong.<br>Try again!`,
+      () => {
+        wrongQuestions.push(currentQ);
+        consecutiveCorrect = 0;
+        loadNextQuestion();
+      }
+    );
   }
 }
 function fireConfetti() {
@@ -301,29 +489,62 @@ function startConfettiRain(duration = 5000) {
       }
     
       function finishLevel() {
- 
-        if (currentLevel < maxLevel) {
         startConfettiRain(3000);
-        document.getElementById("question-container").innerHTML = `
-          <p>✅ Congratulations You've completed Level ${currentLevel}.</p>
-
-          <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>
-        `;
-         
-      } else {
-        document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You’ve completed all levels!</p>`;
-        fireConfetti();
-        
-        setTimeout(() => {
-      window.location.href = "home.html";
-    }, 5000); // 5 second delay for user to see the message
+        if (currentLevel < maxLevel) {
+          showLevelModal(
+            `✅ <b>You've completed Level ${currentLevel}!</b>`,
+            `Go to Level ${currentLevel + 1}`,
+            goToNextLevel
+          );
+        } else {
+          document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You've completed all levels!</p>`;
+          fireConfetti();
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 5000);
+        }
       }
-    }
     
       function goToNextLevel() {
   currentLevel++;
   consecutiveCorrect = 0; // Reset streak for new level
   fetchQuestionsFromServer(currentLevel);
+}
+
+function showErrorModal(message, callback) {
+  const modal = document.getElementById('error-modal');
+  document.getElementById('error-message').innerHTML = message;
+  modal.style.display = 'flex';
+  function closeHandler() {
+    modal.style.display = 'none';
+    document.getElementById('error-close-btn').removeEventListener('click', closeHandler);
+    if (callback) callback();
+  }
+  document.getElementById('error-close-btn').addEventListener('click', closeHandler);
+}
+
+function showLevelModal(message, btnText, callback) {
+  const modal = document.getElementById('level-modal');
+  document.getElementById('level-message').innerHTML = message;
+  const btn = document.getElementById('level-close-btn');
+  btn.textContent = btnText || "Continue";
+  modal.style.display = 'flex';
+  function closeHandler() {
+    modal.style.display = 'none';
+    btn.removeEventListener('click', closeHandler);
+    if (callback) callback();
+  }
+  btn.addEventListener('click', closeHandler);
+}
+
+function showLoadingModal() {
+  const modal = document.getElementById('loading-modal');
+  modal.style.display = 'flex';
+}
+
+function hideLoadingModal() {
+  const modal = document.getElementById('loading-modal');
+  modal.style.display = 'none';
 }
       window.onload = () => fetchQuestionsFromServer(currentLevel);
     </script>
