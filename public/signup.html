@@ -77,6 +77,8 @@
     color: red;
     font-size: 14px;
     display: none;
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
 
   .back-arrow {
@@ -84,7 +86,6 @@
     top: 20px;
     left: 20px;
     font-size: 24px;
-    
     color: #2a3d66;
     text-decoration: none;
     cursor: pointer;
@@ -95,7 +96,6 @@
   }
   
 </style>
-
 </head>
 <body>
   <!-- Back Arrow Link -->
@@ -105,9 +105,9 @@
 
   <section class="signup-section">
     <h2>Create Your Free Account</h2>
-    <form class="signup-form" id="signup-form" action="/signup" method="POST">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
+    <form class="signup-form" id="signup-form">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" required />
 
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required />
@@ -122,58 +122,70 @@
       <input type="password" id="password" name="password" required minlength="6" />
 
       <label for="confirm-password">Confirm Password</label>
-      <input type="text" id="confirm-password" name="confirm-password" required minlength="6" />
+      <input type="password" id="confirm-password" name="confirm-password" required minlength="6" />
 
-      <p class="error-message" id="password-error">Passwords do not match.</p>
+      <p class="error-message" id="password-error"></p>
 
       <button type="submit" class="btn-primary">Sign Up</button>
     </form>
   </section>
 
   <script>
-  const form = document.getElementById('signup-form');
-  const password = document.getElementById('password');
-  const confirmPassword = document.getElementById('confirm-password');
-  const errorMessage = document.getElementById('password-error');
-
- const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
-
-  form.addEventListener('submit', function(e) {
-    const name = document.getElementById('name').value.trim();
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const dob = document.getElementById('dob').value.trim();
-    const pwd = password.value;
-    const confirmPwd = confirmPassword.value;
-
-    if (pwd !== confirmPwd) {
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      errorMessage.textContent = 'Passwords do not match.';
-      errorMessage.style.display = 'block';
-    } else if (!strongPasswordPattern.test(pwd)) {
-      e.preventDefault();
-      errorMessage.textContent = 'Password must include uppercase, lowercase, digit, special character.';
-      errorMessage.style.display = 'block';
-    } else {
-      errorMessage.style.display = 'none';
-
-      // Store data locally (only for learning/demo purposes)
-      const userData = {
-        name: name,
-        username: username,
-        email: email,
-        dob: dob,
-        password: pwd  // In real apps, NEVER store plain passwords
+      
+      const formData = {
+        fullname: document.getElementById('fullname').value.trim(),
+        username: document.getElementById('username').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        dob: document.getElementById('dob').value.trim(),
+        password: document.getElementById('password').value,
+        confirmPassword: document.getElementById('confirm-password').value
       };
-console.log(userData);
-      // Save as JSON string
-      localStorage.setItem('userData', JSON.stringify(userData));
-       window.location.href = 'login.html';
-      // Optional: alert or redirect
-      alert('Sign up successful! Your data is saved locally.');
-    }
-  });
-</script>
 
+      // Reset error message
+      document.getElementById('password-error').style.display = 'none';
+
+      // Client-side validation
+      if (formData.password !== formData.confirmPassword) {
+        document.getElementById('password-error').textContent = 'Passwords do not match.';
+        document.getElementById('password-error').style.display = 'block';
+        return;
+      }
+
+      // Password strength validation
+      const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
+      if (!strongPasswordPattern.test(formData.password)) {
+        document.getElementById('password-error').textContent = 
+          'Password must include uppercase, lowercase, number, and special character.';
+        document.getElementById('password-error').style.display = 'block';
+        return;
+      }
+
+      try {
+        // Send data to backend
+        const response = await fetch('/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.message || 'Signup failed');
+        }
+
+        alert('Signup successful!');
+        window.location.href = 'login.html';
+      } catch (error) {
+        console.error('Signup error:', error);
+        document.getElementById('password-error').textContent = error.message;
+        document.getElementById('password-error').style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>

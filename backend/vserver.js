@@ -1,19 +1,40 @@
-const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const authRoutes = require("./routes/auth");
+const express = require('express'); // Ensure Express is imported
+
+
 
 dotenv.config();
 
-const app = express(); // ✅ Make sure this comes before app.use
 
+const app = express(); // ✅ Make sure this comes before app.use
 const PORT = process.env.PORT || 3000;
+const MONGO_URI = 'mongodb+srv://Dbuser777:asdfghjkl@fs.2rve44w.mongodb.net/fs?retryWrites=true&w=majority';
+console.log('MONGO_URI:', MONGO_URI);
 
 app.use(cors());
+app.use(bodyParser.json()); // Parse JSON payloads
 
 // ✅ Serve static files from public folder
 app.use(express.static(path.join(__dirname, "../public")));
+
+// ✅ Connect to MongoDB
+if (!MONGO_URI) {
+    console.error('❌ MongoDB URI is undefined. Check your .env file.');
+    process.exit(1); // Exit the application
+}
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('✅ Connected to MongoDB'))
+    .catch(err => console.error('❌ Error connecting to MongoDB:', err));
+
+// ✅ Mount Authentication Routes
+app.use("/auth", authRoutes);
 
 // ✅ Your Gemini setup and API route
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -128,7 +149,7 @@ app.get("/api/dyslexia-questions", async (req, res) => {
     console.error("Error fetching Gemini questions:", error);
     res.status(500).json({ error: "Failed to fetch questions from Gemini" });
   }
-});
+}); 
 
 
 app.listen(PORT, () => {

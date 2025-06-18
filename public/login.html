@@ -138,38 +138,57 @@
     </div>
   </section>
 
- <script>
+<script>
   const loginForm = document.getElementById('login-form');
-  const loginError = document.getElementById('login-error');
+const loginError = document.getElementById('login-error');
+loginForm.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
 
-  loginForm.addEventListener('submit', function(e) {
-    e.preventDefault(); // prevent form submission
+  if (!username || !password) {
+    loginError.textContent = 'Please enter both username and password.';
+    loginError.style.display = 'block';
+    return;
+  }
 
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-    console.log("Username:", username);
-    console.log("Password:", password); // for debugging
-    if (!username || !password) {
-      loginError.textContent = 'Please enter both username and password.';
-      loginError.style.display = 'block';
-      return;
+  try {
+    const response = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+
+    // First check response type
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      throw new Error(`Server returned: ${text.substring(0, 100)}`);
     }
-// console.log("Username:", username); 
-// console.log(password);// for debugging
-    // Get stored user data directly here
-    const storedData = JSON.parse(localStorage.getItem('userData')) || null;
-    console.log("Stored Data:", storedData); // for debugging
 
-    // Validate login
-    if (storedData && storedData.username === username && storedData.password === password) {
-      loginError.style.display = 'none';
-      alert('Login successful!');
-      window.location.href = "home.html";
-    } else {
-      loginError.textContent = 'Invalid username or password.';
-      loginError.style.display = 'block';
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Login failed');
     }
-  });
+
+    // Success case
+    localStorage.setItem('user', JSON.stringify({
+      username,
+      badge: result.badge
+    }));
+    window.location.href = 'home.html';
+    
+  } catch (error) {
+    console.error('Login error:', error);
+    loginError.textContent = error.message.startsWith('Server returned: <!DOCTYPE') 
+      ? 'Server configuration error - contact admin'
+      : error.message;
+    loginError.style.display = 'block';
+  }
+});
+
 </script>
 
 
