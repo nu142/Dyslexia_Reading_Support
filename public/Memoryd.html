@@ -136,6 +136,39 @@
   let wrongQuestions = [];
   let turnCount = 0;
   let consecutiveCorrect = 0;
+  let voices = [];
+
+function loadVoicesAndSpeak(message) {
+  voices = speechSynthesis.getVoices();
+  if (voices.length === 0) {
+    // Voices not loaded yet, try again shortly
+    setTimeout(() => loadVoicesAndSpeak(message), 100);
+    return;
+  }
+  readAloud(message);
+}
+
+const getFemaleVoice = () =>
+  voices.find(v =>
+    v.lang.startsWith('en') &&
+    (/female|woman|zira/.test(v.name.toLowerCase()) ||
+    (v.gender?.toLowerCase?.() === 'female'))
+  );
+
+function readAloud(text) {
+  speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(
+    text.replace(/\/\s*/g, ' ').replace(/\s{2,}/g, ' ')
+  );
+  utterance.voice = getFemaleVoice() || null;
+  Object.assign(utterance, { rate: 0.9, pitch: 1, lang: 'en-US' });
+  speechSynthesis.speak(utterance);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const message = "Welcome to Memory Dyslexia Training.Click on the speaker icon to hear the questions. Let's get started!";
+  loadVoicesAndSpeak(message);
+});
 
   async function fetchQuestionsFromServer(level = 1) {
     try {
@@ -300,27 +333,7 @@ function startConfettiRain(duration = 5000) {
     fetchQuestionsFromServer(currentLevel);
   }
 
-  let voices = [];
-
-speechSynthesis.onvoiceschanged = () =>
-  voices = speechSynthesis.getVoices();
-
-const getFemaleVoice = () =>
-  voices.find(v =>
-    v.lang.startsWith('en') &&
-    /female|woman|zira/.test(v.name.toLowerCase()) ||
-    (v.gender?.toLowerCase?.() === 'female')
-  );
-
-function readAloud(text) {
-  const utterance = new SpeechSynthesisUtterance(
-    text.replace(/\/\s*/g, ' ').replace(/\s{2,}/g, ' ')
-  );
-  utterance.voice = getFemaleVoice() || null;
-  Object.assign(utterance, { rate: 0.9, pitch: 1, lang: 'en-US' });
-  speechSynthesis.speak(utterance);
-}
-
+  
 
   window.onload = () => {
 fetchQuestionsFromServer(currentLevel);
