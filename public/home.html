@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face {
-          font-family: 'OpenDyslexic';
-          src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/otf/OpenDyslexic-Regular.otf') format('opentype');
+            font-family: 'OpenDyslexic';
+            src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/otf/OpenDyslexic-Regular.otf') format('opentype');
         }
-      
 
         * {
             box-sizing: border-box;
@@ -65,13 +62,13 @@
         /* Main content container */
         .container {   
             display: flex;
-    flex-direction: column;
-    align-items: center;      /* Center horizontally */
-    justify-content: center;  /* Center vertically */
-    padding: 10px 20px 20px 20px;
-    min-height: 80vh;
-    width: 100%;
-    box-sizing: border-box;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px 20px 20px;
+            min-height: 80vh;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -90,62 +87,66 @@
         }
 
         #results-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left; 
-    justify-content: center;
-    gap: 20px; 
-}
-.result-card {
-    position: relative;
-    background: white;
-    color: rgb(141, 32, 32);
-    padding: 20px;
-    border-radius: 8px;
-    margin: 10px;
-    min-width: 450px;
-    min-height: 350px;
-    width: 250px;
-    height: 250px;
-    box-shadow: 0 4px 20px rgba(42, 61, 102, 0.1);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Use flex-start for normal stacking */
-    align-items: center;         /* Center content horizontally */
-    box-sizing: border-box;
-    overflow: hidden;
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-.result-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.3); /* Adjust opacity as needed */
-    z-index: 0;
-}
-.result-card > * {
-    position: relative;
-    z-index: 1;
-}
-.result-card button {
-    background: #4caf50;
-    color: white;
-    padding: 10px 20px ;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: 'OpenDyslexic', sans-serif;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin-top: auto;
-     /* This pushes the button to the bottom */
-}
-.result-card:hover{
-    box-shadow: 0 6px 24px rgba(42, 61, 102, 0.2);
-    transform: translateY(-5px);
-}
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .result-card {
+            position: relative;
+            background: white;
+            color: rgb(141, 32, 32);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px;
+            min-width: 450px;
+            min-height: 350px;
+            width: 250px;
+            height: 250px;
+            box-shadow: 0 4px 20px rgba(42, 61, 102, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .result-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.3);
+            z-index: 0;
+        }
+
+        .result-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-card button {
+            background: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'OpenDyslexic', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 6px 24px rgba(42, 61, 102, 0.2);
+            transform: translateY(-5px);
+        }
+
         .result-card h3 {
             margin-top: 0;
             margin-bottom: 2px;
@@ -153,16 +154,18 @@
             font-size: 24px;
             font-weight: 600;
         }
+
         .result-card p {
             margin: 10px 0;
             font-size: 16px;
             max-width: 70ch;
             color: #333333;
         }
-       
+
         .result-card button:hover:not(:disabled) {
             background: #3d8b40;
         }
+
         .result-card button:disabled {
             background: #a5aacc;
             color: #f4f4f9;
@@ -176,12 +179,203 @@
             color: #4e8af0;
             transition: all 0.2s ease;
         }
-        
 
-        /* Accessibility focus states */
-        button:focus, a:focus, .speaker:focus {
-            outline: 3px solid #ffeb3b;
-            outline-offset: 2px;
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            right: -350px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #ffffff;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar h2, .sidebar h3 {
+            color: #2a3d66;
+            margin-bottom: 10px;
+        }
+
+        .profile-stickers {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .sticker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .sticker-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .sticker-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .sticker-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+
+        }
+
+        .sticker-label {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 3px;
+            color: #2a3d66;
+        }
+
+        .sticker-level {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #2a3d66;
+            float: right;
+            cursor: pointer;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            width: 320px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .popup-stickers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .popup-sticker-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .popup-sticker-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        /* Button styling */
+        .badge-popup-btn,
+        .change-pass-btn {
+            background-color: #4e8af0;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'OpenDyslexic', sans-serif;
+        }
+
+        .badge-popup-btn:hover,
+        .change-pass-btn:hover {
+            background-color: #3a6edc;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #2a3d66;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            display: none;
+        }
+        #achievements-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+        margin-top: 10px;
+        }
+
+        .sticker-item {
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sticker-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 5px;
+        }
+
+        .no-achievements {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        grid-column: 1/-1;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive design */
@@ -201,6 +395,7 @@
             }
             .result-card {
                 padding: 15px;
+                min-width: 300px;
             }
             h1 {
                 font-size: 28px;
@@ -208,7 +403,11 @@
             .intro {
                 font-size: 18px;
             }
+            .popup-stickers {
+                grid-template-columns: 1fr;
+            }
         }
+
         @media (max-width: 400px) {
             body {
                 font-size: 16px;
@@ -216,107 +415,13 @@
             h1 {
                 font-size: 24px;
             }
+            .result-card {
+                min-width: 250px;
+            }
             .result-card h3 {
                 font-size: 20px;
             }
         }
-        /* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    right: -350px;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background-color: #ffffff;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    transition: right 0.3s ease-in-out;
-    z-index: 1000;
-}
-
-.sidebar.open {
-    right: 0;
-}
-
-.sidebar h2, .sidebar h3 {
-    color: #2a3d66;
-    margin-bottom: 10px;
-}
-
-.badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.badge-icon {
-    width: 60px;
-    height: auto;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #2a3d66;
-    float: right;
-    cursor: pointer;
-}
-/* Popup Styles */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1100;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-box {
-    background: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    width: 320px;
-    position: relative;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-}
-
-.popup-box h3 {
-    color: #2a3d66;
-    margin-bottom: 15px;
-}
-
-.badge-icon-large {
-    width: 100px;
-    height: auto;
-    margin-top: 10px;
-}
-
-/* Button styling */
-.badge-popup-btn,
-.change-pass-btn {
-    background-color: #4e8af0;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: 'OpenDyslexic', sans-serif;
-}
-
-.badge-popup-btn:hover,
-.change-pass-btn:hover {
-    background-color: #3a6edc;
-}
-
-
     </style>
 </head>
 <body>
@@ -326,7 +431,6 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="quiz.html">Test Again</a></li>
             <li><a href="javascript:void(0)" onclick="toggleSidebar()">Profile</a></li>
-
         </ul>
     </div>
 
@@ -334,19 +438,143 @@
         <h1>Your Results</h1>
         <p class="intro" id="intro">We're checking your quiz and reading results...</p>
         <div id="results-container"></div>
+        <div id="loading-spinner" class="spinner"></div>
+        <div id="error-message" class="error-message"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">×</button>
+        <div class="sidebar-content">
+            <h2>👤 Your Profile</h2>
+            <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+            <p><strong>Username:</strong> <span id="profile-username">Loading...</span></p>
+            <p><strong>Date of Birth:</strong> <span id="profile-dob">Loading...</span></p>
+            
+            <div class="profile-stickers">
+            <h3>Your Achievements</h3>
+            <div class="sticker-grid" id="achievements-container">
+                <!-- Will be populated dynamically -->
+            </div>
+            </div>
+
+            <p><strong>Password:</strong>
+                <button class="change-pass-btn" onclick="changePassword()">Change Password</button>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Badge Popup -->
+    <div id="badgePopup" class="popup-overlay">
+        <div class="popup-box">
+            <button class="close-btn" onclick="closeBadgePopup()">×</button>
+            <h3>Your Badge Progress</h3>
+            <div class="popup-stickers">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
     </div>
 
     <script>
-        // Declare globally
+        // Global variables
         let speechSynthesisUtterance;
         let availableVoices = [];
-    
-        // Load voices and trigger voiceschanged event
-        window.speechSynthesis.getVoices();
-        window.speechSynthesis.onvoiceschanged = function() {
-            availableVoices = window.speechSynthesis.getVoices();
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        
+        const areaImages = {
+            auditory: 'audio.svg',
+            phonological: 'phon.svg',
+            visual: 'visual.svg',
+            math: 'math.svg',
+            memory: 'memory.svg'
         };
-    
+        
+        const learningPathMap = {
+            auditory: 'Auditoryd.html',
+            phonological: 'Phonologyd.html',
+            visual: 'Visuald.html',
+            math: 'Mathd.html',
+            memory: 'Memoryd.html'
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Authentication check
+            if (!currentUser.username) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                showLoading();
+                
+                // Initialize UI with cached data first
+                updateProfileDisplay(currentUser);
+                updateAchievementsDisplay();
+                updateBadgeDisplay();
+                
+                // Load voices for speech synthesis
+                window.speechSynthesis.getVoices();
+                window.speechSynthesis.onvoiceschanged = function() {
+                    availableVoices = window.speechSynthesis.getVoices();
+                };
+                
+                // Fetch fresh user data from server
+                const response = await fetch(`/auth/user/${currentUser.username}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        currentUser = data.user;
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                        updateProfileDisplay(currentUser);
+                        updateBadgeDisplay();
+                    }
+                }
+
+                // Display results if available
+                if (localStorage.getItem('quizScores') && localStorage.getItem('readingScores')) {
+                    displayResults();
+                } else {
+                    showError('No results found. Please complete the quiz and reading test first.');
+                    speak('No results found. Please complete the quiz and reading test first.');
+                }
+            } catch (error) {
+                console.error("Initialization error:", error);
+                showError('Error loading data. Using cached information.');
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // UI Functions
+        function showLoading() {
+            document.getElementById('loading-spinner').style.display = 'block';
+            document.getElementById('error-message').style.display = 'none';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading-spinner').style.display = 'none';
+        }
+        
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            document.getElementById('intro').style.display = 'none';
+        }
+        
+        function speak(text) {
+            if (speechSynthesisUtterance) {
+                window.speechSynthesis.cancel();
+            }
+            speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+            const femaleVoice = getFemaleVoice();
+            if (femaleVoice) {
+                speechSynthesisUtterance.voice = femaleVoice;
+            }
+            window.speechSynthesis.speak(speechSynthesisUtterance);
+        }
+        
         function getFemaleVoice() {
             return availableVoices.find(v =>
                 v.lang.startsWith('en') && (
@@ -359,22 +587,153 @@
                 )
             );
         }
-    
-        function speak(text) {
-            if (speechSynthesisUtterance) {
-                window.speechSynthesis.cancel();
-            }
-            speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
-            const femaleVoice = getFemaleVoice();
-            if (femaleVoice) {
-                speechSynthesisUtterance.voice = femaleVoice;
-            }
-            window.speechSynthesis.speak(speechSynthesisUtterance);
-        }
-    
-    
 
-        // Combine quiz and reading scores
+        // Profile Functions
+        function updateProfileDisplay(userData) {
+            if (!userData) return;
+            
+            document.getElementById('profile-name').textContent = 
+                userData.profile?.fullname || "Guest";
+            document.getElementById('profile-username').textContent = 
+                userData.username || "Unknown";
+            
+            if (userData.profile?.dob) {
+                try {
+                    const dobDate = new Date(userData.profile.dob);
+                    document.getElementById('profile-dob').textContent = 
+                        dobDate.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                } catch (e) {
+                    document.getElementById('profile-dob').textContent = "Not available";
+                }
+            }
+        }
+
+        // Add this with your other functions
+        function updateAchievementsDisplay() {
+        const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+        const badges = userData.badge || {};
+        const container = document.getElementById('achievements-container');
+        
+        // Clear existing badges
+        container.innerHTML = '';
+        
+        // Only show earned badges (level > 0)
+        for (const [type, level] of Object.entries(badges)) {
+            if (level > 0) {
+            container.innerHTML += `
+                <div class="sticker-item">
+                <img src="assets/${type}-level-${level}.svg" 
+                    alt="${type} badge level ${level}"
+                    class="sticker-img">
+                <span class="sticker-label">${type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                <span class="sticker-level">Level ${level}</span>
+                </div>
+            `;
+            }
+        }
+        
+        // Show message if no badges earned yet
+        if (container.innerHTML === '') {
+            container.innerHTML = `
+            <div class="no-achievements">
+                <p>Complete training to earn your first badge!</p>
+            </div>
+            `;
+        }
+        }
+
+        function updateBadgeDisplay() {
+        const types = ['auditory', 'phonological', 'visual', 'math', 'memory'];
+        const userData = currentUser || JSON.parse(localStorage.getItem('currentUser')) || {};
+        
+        types.forEach(type => {
+            const level = userData.badge?.[type] || 0;
+            const sticker = document.getElementById(`${type}-sticker`);
+            const levelText = document.getElementById(`${type}-level`);
+            
+            if (sticker) {
+                // Clear previous classes
+                sticker.className = 'sticker-img';
+                
+                if (level > 0) {
+                    // Show earned badge
+                    sticker.src = `assets/${type}-level-${level}.svg`;
+                    sticker.alt = `${type} Level ${level} Badge`;
+                    sticker.onerror = function() {
+                        this.src = 'assets/badges/default-earned.png';
+                    };
+                } else {
+                    // Show locked state for unearned badges
+                    sticker.src = 'assets/badges/default-locked.png';
+                    sticker.alt = `${type} Locked Badge`;
+                    // No onerror needed for default image
+                }
+            }
+            
+            if (levelText) {
+                levelText.textContent = level;
+            }
+        });
+    }
+
+        async function completeLevel(dyslexiaType, level) {
+                try {
+                    const response = await fetch('/auth/complete-level', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: currentUser.username,
+                        dyslexiaType: dyslexiaType,
+                        level: level
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                // Update local user data
+                const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+                userData.badge = data.badges;
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                // Refresh the badge display
+                updateAchievementsDisplay(); // Add this line
+                }
+                return data;
+            } catch (error) {
+                console.error("Error:", error);
+            }
+            }
+
+        function showBadgePopup() {
+            const popupContent = document.querySelector('.popup-stickers');
+            popupContent.innerHTML = '';
+            
+            ['auditory', 'phonological', 'visual', 'math', 'memory'].forEach(type => {
+                const level = currentUser.badge?.[type] || 0;
+                popupContent.innerHTML += `
+                    <div class="popup-sticker-item">
+                        <img src="assets/badges/${type}-level-${level}.png" 
+                             onerror="this.src='assets/badges/default.png'"
+                             alt="${type} badge level ${level}"
+                             class="popup-sticker-img">
+                        <p>${type.charAt(0).toUpperCase() + type.slice(1)}: Level ${level}/3</p>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('badgePopup').style.display = 'flex';
+        }
+
+        function closeBadgePopup() {
+            document.getElementById('badgePopup').style.display = 'none';
+        }
+
+        // Results Display Functions
         function combineScores() {
             const quizScores = JSON.parse(localStorage.getItem('quizScores')) || {
                 auditory: 0,
@@ -383,6 +742,7 @@
                 math: 0,
                 memory: 0
             };
+            
             const readingScores = JSON.parse(localStorage.getItem('readingScores')) || {
                 auditory: 1,
                 phonological: 1,
@@ -391,7 +751,6 @@
                 memory: 1
             };
 
-            // Maximum scores for quiz
             const quizMaxScores = {
                 auditory: 3,
                 phonological: 3,
@@ -400,7 +759,6 @@
                 memory: 6
             };
 
-            // Maximum scores for reading (math is 1, others are 3)
             const readingMaxScores = {
                 auditory: 3,
                 phonological: 3,
@@ -409,7 +767,6 @@
                 memory: 3
             };
 
-            // Normalize and combine scores
             const combinedScores = {};
             for (const category of ['auditory', 'phonological', 'visual', 'math', 'memory']) {
                 const quizNormalized = quizScores[category] / quizMaxScores[category];
@@ -420,10 +777,9 @@
             return combinedScores;
         }
 
-        // Determine areas needing improvement
         function getAreasNeedingImprovement(combinedScores) {
             const areas = [];
-            const threshold = 0.6; // Need improvement if score > 60%
+            const threshold = 0.6;
             for (const [category, score] of Object.entries(combinedScores)) {
                 if (score > threshold) {
                     areas.push(category);
@@ -432,16 +788,6 @@
             return areas;
         }
 
-        // Map categories to learning path files
-        const learningPathMap = {
-            auditory: 'Auditoryd.html',
-            phonological: 'Phonologyd.html',
-            visual: 'Visuald.html',
-            math: 'Mathd.html',
-            memory: 'Memoryd.html'
-        };
-
-        // Generate layman-friendly results
         function displayResults() {
             const combinedScores = combineScores();
             const areasNeedingImprovement = getAreasNeedingImprovement(combinedScores);
@@ -449,144 +795,81 @@
             let introText = '';
             let speechText = '';
 
-            // Define layman-friendly descriptions
             const areaDescriptions = {
                 auditory: {
-                    name: 'Hearing and Understanding ',
-                    description: 'You might find it tricky to hear words clearly or follow spoken instructions.',
-                   
+                    name: 'Hearing and Understanding',
+                    description: 'You might find it tricky to hear words clearly or follow spoken instructions.'
                 },
                 phonological: {
                     name: 'Breaking Down Words',
-                    description: 'You may have trouble sounding out words or splitting them into smaller parts.',
-                    //suggestion: 'Practice reading aloud or play word games to help with sounding out words.'
+                    description: 'You may have trouble sounding out words or splitting them into smaller parts.'
                 },
                 visual: {
                     name: 'Seeing and Recognizing Words',
-                    description: 'Words or letters might look mixed up, blurry, or hard to follow on the page.',
-                    //suggestion: 'Use colored overlays or tracking tools to make reading clearer and more comfortable.'
+                    description: 'Words or letters might look mixed up, blurry, or hard to follow on the page.'
                 },
                 math: {
                     name: 'Working with Numbers',
-                     description: 'Numbers or math tasks like counting or telling time might feel challenging.',
-                    // suggestion: 'Try using number blocks or visual charts to make math easier to understand.'
+                    description: 'Numbers or math tasks like counting or telling time might feel challenging.'
                 },
                 memory: {
                     name: 'Remembering What You Read',
-                     description: 'It might be hard to remember what you just read or keep instructions in mind.',
-                    // suggestion: 'Try reading small parts at a time or using memory tricks like repeating words.'
+                    description: 'It might be hard to remember what you just read or keep instructions in mind.'
                 }
             };
 
-            // Case 1: No improvement needed
             if (areasNeedingImprovement.length === 0) {
-                introText = '🎉 You’re doing great! Your quiz and reading results show you’re doing well. You can choose any area to practice and get even better!';
-                speechText = 'You’re doing great! Your results show you’re doing well. Choose any area to practice.';
+                introText = '🎉 You\'re doing great! Your quiz and reading results show you\'re doing well. You can choose any area to practice and get even better!';
+                speechText = 'You\'re doing great! Your results show you\'re doing well. Choose any area to practice.';
                 resultsContainer.innerHTML = Object.entries(areaDescriptions)
-                    .map(([category, { name, description, suggestion }]) => `
+                    .map(([category, { name, description }]) => `
                         <div class="result-card" style="background-image: url('${areaImages[category]}'); background-size: cover; background-position: center;">
                             <h3>${name}</h3> 
-                            <span class="speaker" onclick="speak('${name}. ${description} ')">🔊</span>
+                            <span class="speaker" onclick="speak('${name}. ${description}')">🔊</span>
                             <p>${description}</p>
-                            <button onclick="window.location.href='${learningPathMap[category]}'">Work on This</button>
+                            <button onclick="completeLevel('${category}', 1).then(() => window.location.href='${learningPathMap[category]}')">Work on This</button>
                         </div>
-                    `)
-                    .join('');
-            }
-            // Case 2: Some or all areas need improvement
-            else {
+                    `).join('');
+            } else {
                 introText = areasNeedingImprovement.length === 5
-                    ? 'Here are some areas where you can improve based on your quiz and reading results. Don’t worry, we’ll help you get better!'
-                    : 'Here are the areas where you can improve based on your quiz and reading results. Let’s work on these together!';
+                    ? 'Here are some areas where you can improve based on your quiz and reading results. Don\'t worry, we\'ll help you get better!'
+                    : 'Here are the areas where you can improve based on your quiz and reading results. Let\'s work on these together!';
                 speechText = introText;
                 resultsContainer.innerHTML = areasNeedingImprovement
                     .map(category => {
-                        const { name, description, suggestion } = areaDescriptions[category];
+                        const { name, description } = areaDescriptions[category];
                         return `
                             <div class="result-card" style="background-image: url('${areaImages[category]}'); background-size: cover; background-position: center;">
-                                <h3>${name} </h3> 
-                                <span class="speaker" onclick="speak('${name}. ${description} ')">🔊</span>
+                                <h3>${name}</h3> 
+                                <span class="speaker" onclick="speak('${name}. ${description}')">🔊</span>
                                 <p>${description}</p>
-                                
-                                <button onclick="window.location.href='${learningPathMap[category]}'">Work on This</button>
+                                <button onclick="completeLevel('${category}', 1).then(() => window.location.href='${learningPathMap[category]}')">Work on This</button>
                             </div>
                         `;
-                    })
-                    .join('');
+                    }).join('');
             }
 
             document.getElementById('intro').textContent = introText;
             speak(speechText);
         }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!localStorage.getItem('quizScores') || !localStorage.getItem('readingScores')) {
-                document.getElementById('intro').textContent = 'No results found. Please complete the quiz and reading test first.';
-                speak('No results found. Please complete the quiz and reading test first.');
-                return;
-            }
-            displayResults();
-        });
-    </script>
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <button class="close-btn" onclick="toggleSidebar()">×</button>
-        <div class="sidebar-content">
-            <h2>👤 Your Profile</h2>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Username:</strong> johndoe123</p>
-            <p><strong>Date of Birth:</strong> 2000-01-01</p>
-    
-            <p><strong>Badge:</strong> 
-                <button class="badge-popup-btn" onclick="showBadgePopup()">View Badge</button>
-            </p>
-    
-            <p><strong>Password:</strong>
-                <button class="change-pass-btn" onclick="changePassword()">Change Password</button>
-            </p>
-        </div>
-    </div>
-    
-    <!-- Badge Popup -->
-    <div id="badgePopup" class="popup-overlay">
-        <div class="popup-box">
-            <button class="close-btn" onclick="closeBadgePopup()">×</button>
-            <h3>🏅 Your Badge</h3>
-            <img src="badge1.svg" alt="Level 1 Badge" class="badge-icon-large">
-        </div>
-    </div>
-    
-<script>
-    const areaImages = {
-    auditory: 'audio.svg',      // Replace with your actual image paths
-    phonological: 'phon.svg',
-    visual: 'visual.svg',
-    math: 'math.svg',
-    memory: 'memory.svg'
-};
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('open');
         
-    }
-    function showBadgePopup() {
-    document.getElementById('badgePopup').style.display = 'flex';
-}
+        // Sidebar Functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        function changePassword() {
+            const newPassword = prompt("Enter your new password:");
+            if (newPassword) {
+                alert("Password changed successfully!");
+            }
+        }
 
-function closeBadgePopup() {
-    document.getElementById('badgePopup').style.display = 'none';
-}
-
-function changePassword() {
-    const newPassword = prompt("Enter your new password:");
-    if (newPassword) {
-        alert("Password changed successfully (simulated).");
-        // Here you’d send the new password to the backend (if connected)
-    }
-}
-</script>
-
-
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>

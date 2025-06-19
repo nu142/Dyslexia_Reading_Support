@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express(); // ✅ Make sure this comes before app.use
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = 'mongodb+srv://Dbuser777:asdfghjkl@fs.2rve44w.mongodb.net/fs?retryWrites=true&w=majority';
+const MONGO_URI = 'mongodb+srv://Dbuser777:qwerty777@fs.2rve44w.mongodb.net/fs?retryWrites=true&w=majority&appName=FS'; // Default to local MongoDB if not set
 console.log('MONGO_URI:', MONGO_URI);
 
 app.use(cors());
@@ -37,7 +37,7 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use("/auth", authRoutes);
 
 // ✅ Your Gemini setup and API route
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI('AIzaSyAtVHDSkPkkAu2UuRtSleZByEnsjqpWZbU');
 
 
 

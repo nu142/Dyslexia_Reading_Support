@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256" viewBox="0 0 256 256">
+  <g transform="translate(36.059 36.059) scale(2.03)">
+    <!-- Ribbon Top -->
+    <path d="M 51.959 13.205 C 55.751 10.22 57.016 5.819 55.751 0 H 34.249 c -2.789 5.694 -2.074 10.264 3.792 13.205 H 51.959 z" fill="#0c174d"/>
+
+    <!-- Ribbon Sides -->
+    <polygon points="42.95,30.28 34.25,0 17.75,10.71 25.63,37.49" fill="#62a3ed"/>
+    <polygon points="64.37,37.49 72.25,10.71 55.75,0 47.06,30.28" fill="#62a3ed"/>
+
+    <!-- Blue Circle -->
+    <path d="M 45 90 c 16.769 0 30.363 -13.594 30.363 -30.363 S 61.769 29.273 45 29.273 C 34.997 49.991 34.2 70.271 45 90 z" fill="#4ea0fb"/>
+    <path d="M 45 90 c -16.769 0 -30.363 -13.594 -30.363 -30.363 S 28.231 29.273 45 29.273 v 60.696" fill="#4b61fd"/>
+
+    <!-- Eye Shape -->
+    <path d="M 30 65 Q 45 50, 60 65 Q 45 80, 30 65 Z" fill="white" stroke="#0c174d" stroke-width="1.5"/>
+
+    <!-- Pupil -->
+    <circle cx="45" cy="65" r="5" fill="#0c174d"/>
+
+    <!-- Eyelashes -->
+    <line x1="35" y1="60" x2="33" y2="55" stroke="#0c174d" stroke-width="1"/>
+    <line x1="40" y1="58" x2="39" y2="53" stroke="#0c174d" stroke-width="1"/>
+    <line x1="45" y1="57" x2="45" y2="52" stroke="#0c174d" stroke-width="1"/>
+    <line x1="50" y1="58" x2="51" y2="53" stroke="#0c174d" stroke-width="1"/>
+    <line x1="55" y1="60" x2="57" y2="55" stroke="#0c174d" stroke-width="1"/>
+  </g>
+</svg>

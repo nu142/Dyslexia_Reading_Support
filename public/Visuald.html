@@ -244,6 +244,38 @@
     .loading-modal-dots span:nth-child(1) { animation-delay: -0.32s; }
     .loading-modal-dots span:nth-child(2) { animation-delay: -0.16s; }
     .loading-modal-dots span:nth-child(3) { animation-delay: 0s; }
+
+
+    
+/* Level up message */
+.level-up-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  animation: fadeInOut 3s ease;
+}
+
+.message-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 300px;
+}
+
+.level-badge img {
+  width: 80px;
+  height: 80px;
+  margin: 1rem auto;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translate(-50%, -40%); }
+  20%, 80% { opacity: 1; transform: translate(-50%, -50%); }
+}
     @keyframes shake {
       0% { transform: translateX(0); }
       20% { transform: translateX(-10px); }
@@ -489,25 +521,200 @@ function startConfettiRain(duration = 5000) {
       }
     
       function finishLevel() {
-        startConfettiRain(3000);
-        if (currentLevel < maxLevel) {
-          showLevelModal(
-            `✅ <b>You've completed Level ${currentLevel}!</b>`,
-            `Go to Level ${currentLevel + 1}`,
-            goToNextLevel
-          );
-        } else {
-          document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You've completed all levels!</p>`;
-          fireConfetti();
-          setTimeout(() => {
-            window.location.href = "home.html";
-          }, 5000);
+      startConfettiRain(3000);
+      if (currentLevel < maxLevel) {
+        // Show completion UI
+        document.getElementById("question-container").innerHTML = `
+          <p>✅ You've completed Level ${currentLevel}.</p>
+          <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>
+        `;
+      } else {
+        // Final level completion
+        document.getElementById("question-container").innerHTML = `
+          <p>🎉 Congratulations! You've completed all levels!</p>
+        `;
+        fireConfetti(); 
+        setTimeout(() => {
+          completeLevelAndRedirect(); // Added this new function
+        }, 3000);
+      }
+    }
+  
+
+  async function getSavedLevel() {
+  let username = localStorage.getItem('username');
+  let userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+  if (!username && userData.username) username = userData.username;
+  if (!username) return 1;
+
+  try {
+    // Fetch user data from backend
+    const res = await fetch(`/auth/user/${username}`);
+    if (!res.ok) throw new Error('Failed to fetch user data');
+    const data = await res.json();
+    // Check for completedLevels in profile
+    const completed = data?.user?.profile?.completedLevels?.auditory;
+    // If user has completed level 3, start at 3, else next level
+    if (typeof completed === 'number' && completed > 0) {
+      return completed;
+    } 
+  } catch (e) {
+    console.warn('Could not fetch saved level:', e);
+  }
+  return 1;
+}
+
+  async function completeLevelAndRedirect() {
+  console.log('[Frontend] Starting level completion process...');
+  
+  // Show loading indicator
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.className = 'loading-overlay';
+  loadingIndicator.innerHTML = `
+    <div class="loading-spinner"></div>
+    <p>Saving your progress...</p>
+  `;
+  document.body.appendChild(loadingIndicator);
+
+  try {
+    // 1. Get user session data with multiple fallbacks
+    let username = localStorage.getItem('username');
+    const authToken = localStorage.getItem('authToken');
+    let userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+
+    // Fallback to userData if username not directly in localStorage
+    if (!username && userData.username) {
+      username = userData.username;
+      console.log('[Frontend] Retrieved username from userData');
+    }
+
+    // Final fallback - redirect to login if no user session
+    if (!username) {
+      console.error('[Frontend] No user session found');
+      throw new Error('session_expired');
+    }
+
+    console.log(`[Frontend] Completing level for ${username}, type: auditory, level: ${currentLevel}`);
+
+    // 2. Make API request to save progress
+    const response = await fetch('/auth/complete-level', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken || ''}`,
+      },
+      body: JSON.stringify({
+        username: username,
+        dyslexiaType: 'auditory',
+        level: currentLevel
+      })
+    });
+    
+    console.log('[Frontend] API request sent to ',response);
+    console.log('[Frontend] API request body:', response.body);
+
+    console.log('[Frontend] API response status:', response.status);
+    
+    // 3. Handle API response
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('[Frontend] API error response:', errorData);
+      throw new Error(errorData.message || 'api_error');
+    }
+
+    const data = await response.json();
+    console.log('[Frontend] API success response:', data);
+
+    if (data.success) {
+      // 4. Update local user data
+      userData.badge = data.badges || userData.badge || {};
+      userData.profile = userData.profile || {};
+      userData.profile.completedLevels = data.completedLevels || userData.profile.completedLevels || {};
+      
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+      console.log('[Frontend] Updated user data:', userData);
+      
+      // 5. Visual feedback
+      fireConfetti();
+      startConfettiRain(3000);
+      showLevelUpMessage(currentLevel);
+      
+      // 6. Redirect after delay
+      setTimeout(() => {
+        window.location.href = `home.html?levelCompleted=auditory&lvl=${currentLevel}`;
+      }, 3000);
+    } else {
+      throw new Error(data.message || 'progress_save_failed');
+    }
+  } catch (error) {
+    console.error('[Frontend] System error:', {
+      error: error.message,
+      stack: error.stack,
+      currentLevel: currentLevel,
+      localStorage: {
+        username: localStorage.getItem('username'),
+        authToken: localStorage.getItem('authToken'),
+        currentUser: localStorage.getItem('currentUser')
+      }
+    });
+    
+    // 7. User-friendly error handling
+    let errorMessage = 'We couldn\'t save your progress.';
+    let redirectToLogin = false;
+
+    switch(error.message) {
+      case 'session_expired':
+        errorMessage = 'Your session expired. Please login again.';
+        redirectToLogin = true;
+        break;
+      case 'api_error':
+        errorMessage = 'Server error. Your progress might not be saved.';
+        break;
+      case 'progress_save_failed':
+        errorMessage = 'Failed to save progress. Please try again later.';
+        break;
+      default:
+        errorMessage = `Error: ${error.message}`;
+    }
+
+    showErrorModal(
+      `${errorMessage}<br><br>Don't worry - you can try again later.`,
+      () => {
+        if (redirectToLogin) {
+          window.location.href = 'login.html?redirect=' + 
+            encodeURIComponent(window.location.pathname);
         }
       }
+    );
+  } finally {
+    // 8. Always remove loading indicator
+    loadingIndicator.remove();
+  }
+}
+  function showLevelUpMessage(level) {
+  const messages = {
+    1: "Great start! You've completed Level 1!",
+    2: "Awesome! Level 2 mastered!",
+    3: "Incredible! You've mastered all levels!"
+  };
+
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'level-up-message';
+  messageDiv.innerHTML = `
+    <div class="message-box">
+      <h3>${messages[level] || 'Level Completed!'}</h3>
+      <div class="level-badge">
+        <img src="assets/badges/auditory-level-${level}.png" alt="Level ${level} Badge">
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(messageDiv);
+  setTimeout(() => messageDiv.remove(), 3000);
+}
     
-      function goToNextLevel() {
+  function goToNextLevel() {
   currentLevel++;
-  consecutiveCorrect = 0; // Reset streak for new level
   fetchQuestionsFromServer(currentLevel);
 }
 
@@ -545,7 +752,44 @@ function showLoadingModal() {
 function hideLoadingModal() {
   const modal = document.getElementById('loading-modal');
   modal.style.display = 'none';
+
 }
+
+
+document.getElementById('close-btn').addEventListener('click', async function() {
+  // Show loading overlay or spinner if you want
+  let username = localStorage.getItem('username');
+  let authToken = localStorage.getItem('authToken');
+  let userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+  if (!username && userData.username) username = userData.username;
+
+  if (!username) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  try {
+    // Save current progress
+    await fetch('/auth/complete-level', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken || ''}`,
+      },
+      body: JSON.stringify({
+        username: username,
+        dyslexiaType: 'auditory',
+        level: currentLevel
+      })
+    });
+  } catch (e) {
+    // Optionally show an error or fallback
+    console.error('Could not save progress:', e);
+  }
+
+  // Redirect to home or results page
+  window.location.href = 'home.html';
+});
       window.onload = () => fetchQuestionsFromServer(currentLevel);
     </script>
     

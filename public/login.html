@@ -138,59 +138,47 @@
     </div>
   </section>
 
-<script>
-  const loginForm = document.getElementById('login-form');
-const loginError = document.getElementById('login-error');
-loginForm.addEventListener('submit', async function (e) {
-  e.preventDefault();
-  
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
+   <script>
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorElement = document.getElementById('login-error');
 
-  if (!username || !password) {
-    loginError.textContent = 'Please enter both username and password.';
-    loginError.style.display = 'block';
-    return;
-  }
+      if (!username || !password) {
+        errorElement.textContent = 'Please enter both fields';
+        errorElement.style.display = 'block';
+        return;
+      }
 
-  try {
-    const response = await fetch('http://localhost:3000/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      try {
+        const response = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || 'Login failed');
+        }
+
+        // Store all user data
+        localStorage.setItem('currentUser', JSON.stringify({
+          username: result.username,
+          badge: result.badge,
+          profile: result.profile
+        }));
+
+        window.location.href = 'home.html';
+      } catch (error) {
+        errorElement.textContent = error.message;
+        errorElement.style.display = 'block';
+      }
     });
-
-    // First check response type
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      const text = await response.text();
-      throw new Error(`Server returned: ${text.substring(0, 100)}`);
-    }
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error || 'Login failed');
-    }
-
-    // Success case
-    localStorage.setItem('user', JSON.stringify({
-      username,
-      badge: result.badge
-    }));
-    window.location.href = 'quiz.html';
-    
-  } catch (error) {
-    console.error('Login error:', error);
-    loginError.textContent = error.message.startsWith('Server returned: <!DOCTYPE') 
-      ? 'Server configuration error - contact admin'
-      : error.message;
-    loginError.style.display = 'block';
-  }
-});
-
-</script>
-
+  </script>
 
 
 </body>

@@ -15,12 +15,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
-  badge: { 
-    type: Number, 
-    default: 0,
-    min: 0,
-    max: 5
-  },
+  badge: {
+  type: Object,
+  default: {}
+},
   profile: {
     fullname: {
       type: String,
@@ -37,6 +35,23 @@ const UserSchema = new mongoose.Schema({
     dob: {
       type: Date,
       required: true
+    },
+    dyslexiaType: {
+      type: String,
+      enum: ['auditory', 'phonological', 'visual', 'math', 'memory', 'mixed', null],
+      default: null
+    },
+    // In your UserSchema (user.js)
+    badges: {
+      type: Map,
+      of: Number,
+      default: () => new Map([
+        ['auditory', 0],
+        ['phonological', 0],
+        ['visual', 0], 
+        ['math', 0],
+        ['memory', 0]
+      ])
     }
   },
   createdAt: {
@@ -64,6 +79,20 @@ UserSchema.pre('save', async function(next) {
 // Method to compare passwords
 UserSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
+};
+
+UserSchema.methods.updateBadge = async function(dyslexiaType, level) {
+  if (!this.badges.has(dyslexiaType)) {
+    throw new Error('Invalid dyslexia type');
+  }
+  
+  // Only update if new level is higher than current
+  if (level > this.badges.get(dyslexiaType)) {
+    this.badges.set(dyslexiaType, level);
+    await this.save();
+  }
+  
+  return this.badges.get(dyslexiaType);
 };
 
 module.exports = mongoose.model('User', UserSchema);

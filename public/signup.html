@@ -171,6 +171,7 @@
           },
           body: JSON.stringify(formData)
         });
+        console.log('Response status:', response);
 
         const data = await response.json();
         
