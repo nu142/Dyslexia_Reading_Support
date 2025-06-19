@@ -111,11 +111,277 @@
         padding: 15px;
       }
     }
+
+    /* Loading Animation */
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    
+    .loading-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .loading-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4e8af0;
+      animation: loading-bounce 1.4s ease-in-out infinite both;
+    }
+    
+    .loading-dots span:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+    
+    .loading-dots span:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+    
+    .loading-dots span:nth-child(3) {
+      animation-delay: 0s;
+    }
+    
+    @keyframes loading-bounce {
+      0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+      }
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* --- Popup Modals --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 18px;
+      max-width: 90vw;
+      width: 340px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      position: relative;
+      animation: bounceIn 0.5s;
+    }
+    /* Error Modal */
+    #error-modal .modal-content {
+      animation: shake 0.4s;
+    }
+    #error-modal .modal-title {
+      color: #ff6262;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+    #error-modal .modal-btn {
+      background: #ff6262;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    #error-modal .modal-btn:hover {
+      background: #e03a3a;
+    }
+    /* Level Modal */
+    #level-modal .modal-content {
+      animation: bounceIn 0.5s;
+    }
+    #level-modal .modal-title {
+      color: #ffd700;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 8px #ffef8e;
+    }
+    #level-modal .modal-btn {
+      background: linear-gradient(90deg, #4caf50 60%, #ffd700 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      box-shadow: 0 2px 8px #ffd70060;
+      transition: background 0.2s;
+    }
+    #level-modal .modal-btn:hover {
+      background: linear-gradient(90deg, #388e3c 60%, #ffd700 100%);
+    }
+
+    /* Loading Popup Modal */
+    .loading-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .loading-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: bounceIn 0.5s ease;
+    }
+
+    .loading-modal-title {
+      color: #2a3d66;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .loading-modal-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .loading-modal-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #4e8af0;
+      animation: loading-bounce 1.4s ease-in-out infinite both;
+    }
+
+    .loading-modal-dots span:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .loading-modal-dots span:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    .loading-modal-dots span:nth-child(3) {
+      animation-delay: 0s;
+    }
+    /* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #2a3d66;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Level up message */
+.level-up-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  animation: fadeInOut 3s ease;
+}
+
+.message-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 300px;
+}
+
+.level-badge img {
+  width: 80px;
+  height: 80px;
+  margin: 1rem auto;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translate(-50%, -40%); }
+  20%, 80% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+    /* Animations */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-10px); }
+      80% { transform: translateX(10px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      80% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Auditory Dyslexia Trainer</h1>
+   
+  <button id="close-btn" title="Exit Training" style="
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+  ">&times;</button>
+
   </header>
   <main>
     <div id="question-container">
@@ -123,6 +389,36 @@
     </div>
     <button id="next-btn" onclick="loadNextQuestion()">Next</button>
   </main>
+
+  <!-- Error Modal -->
+  <div id="error-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-title">😕</div>
+      <div id="error-message" style="font-size:1.1rem; margin-bottom:1.5rem;"></div>
+      <button id="error-close-btn" class="modal-btn">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Level Modal -->
+  <div id="level-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-title">🏆</div>
+      <div id="level-message" style="font-size:1.15rem; margin-bottom:1.5rem;"></div>
+      <button id="level-close-btn" class="modal-btn">Continue</button>
+    </div>
+  </div>
+
+  <!-- Loading Modal -->
+  <div id="loading-modal" class="loading-modal">
+    <div class="loading-modal-content">
+      <div class="loading-modal-title">Loading Questions</div>
+      <div class="loading-modal-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
 
   <script>
     let questions = [];
@@ -169,15 +465,22 @@ window.addEventListener('DOMContentLoaded', () => {
   
     async function fetchQuestionsFromServer(level = 1) {
       try {
+        // Show loading popup
+        showLoadingModal();
+        
         const response = await fetch(`http://localhost:3000/api/dyslexia-questions?type=auditory&level=${level}`);
         questions = await response.json();
         currentQuestionIndex = 0;
         wrongQuestions = [];
         turnCount = 0;
         consecutiveCorrect = 0;
+        
+        // Hide loading popup and display question
+        hideLoadingModal();
         displayQuestion();
       } catch (error) {
-        document.getElementById("question-container").innerText = "Failed to load questions.";
+        hideLoadingModal();
+        showErrorModal("Failed to load questions. Please try again later.");
         console.error("Error fetching questions:", error);
       }
     }
@@ -203,76 +506,74 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   
     function checkAnswer(selected) {
-  const correct = questions[currentQuestionIndex].correct;
-  const currentQ = questions[currentQuestionIndex];
+      const correct = questions[currentQuestionIndex].correct;
+      const currentQ = questions[currentQuestionIndex];
 
-  if (selected === correct) {
-    console.log('correct streak:', consecutiveCorrect);
-    console.log(currentLevel);
-    consecutiveCorrect++;
-    setTimeout(() => {
-      // Mastery condition
-      if (consecutiveCorrect >= 5) {
-        alert("🎉 Great job! You answered 5 in a row correctly. Moving to next level!");
-        finishLevel();
+      if (selected === correct) {
+        console.log('correct streak:', consecutiveCorrect);
+        console.log(currentLevel);
+        consecutiveCorrect++;
+        setTimeout(() => {
+          // Mastery condition
+          if (consecutiveCorrect >= 1) {
+            finishLevel();
+          } else {
+            loadNextQuestion();
+          }
+        }, 300); // short delay for feedback
       } else {
-        loadNextQuestion();
+        showErrorModal(
+          `❌ <b>Oops!</b> That answer was wrong.<br>Try again!`,
+          () => {
+            wrongQuestions.push(currentQ);
+            consecutiveCorrect = 0;
+            loadNextQuestion();
+          }
+        );
       }
-    }, 300); // short delay for feedback
-  } else {
-    alert(`❌ Oops! The answer was wrong.`);
-    wrongQuestions.push(currentQ);
-    consecutiveCorrect = 0;
-    setTimeout(() => {
-      loadNextQuestion();
-    }, 100); // short delay for feedback
-  }
-}
+    }
   
-      
-  
-function fireConfetti() {
-  confetti({
-    particleCount: 300,
-    spread: 100,
-    origin: { y: 0.3 },
-    gravity: 1.7,              // Fast falling
-    ticks: 400,                // Lives longer
-    decay: 0.95,               // Slower fade-out
-    shapes: ['circle'],
-    colors: ['#f7fac5', '#ff6262', '#faa534', '#22b4a1'],
+    function fireConfetti() {
+      confetti({
+        particleCount: 300,
+        spread: 100,
+        origin: { y: 0.3 },
+        gravity: 1.7,              // Fast falling
+        ticks: 400,                // Lives longer
+        decay: 0.95,               // Slower fade-out
+        shapes: ['circle'],
+        colors: ['#f7fac5', '#ff6262', '#faa534', '#22b4a1'],
 
-  });
-}
+      });
+    }
 
+    let rainInterval;
 
-let rainInterval;
+    function startConfettiRain(duration = 5000) {
+      const end = Date.now() + duration;
 
-function startConfettiRain(duration = 5000) {
-  const end = Date.now() + duration;
+      rainInterval = setInterval(() => {
+        confetti({
+          particleCount: 5,
+          angle: 90,
+          spread: 15,
+          startVelocity: 20,
+          gravity: 1.5,
+          ticks: 400,                // Lives longer
+        decay: 0.95, 
+          origin: {
+            x: Math.random(),
+            y: 0
+          },
+          colors: ['#f7fac5', '#ff6262', '#faa534', '#22b4a1'],
+          shapes: ['circle'],
+          scalar: 0.8,
+          zIndex: 999
+        });
 
-  rainInterval = setInterval(() => {
-    confetti({
-      particleCount: 5,
-      angle: 90,
-      spread: 15,
-      startVelocity: 20,
-      gravity: 1.5,
-      ticks: 400,                // Lives longer
-    decay: 0.95, 
-      origin: {
-        x: Math.random(),
-        y: 0
-      },
-      colors: ['#f7fac5', '#ff6262', '#faa534', '#22b4a1'],
-      shapes: ['circle'],
-      scalar: 0.8,
-      zIndex: 999
-    });
-
-    if (Date.now() > end) clearInterval(rainInterval);
-  }, 50); // emit every 50ms
-}
+        if (Date.now() > end) clearInterval(rainInterval);
+      }, 50); // emit every 50ms
+    }
         
      
   
@@ -288,34 +589,277 @@ function startConfettiRain(duration = 5000) {
     }
   
     function finishLevel() {
-  
+      startConfettiRain(3000);
       if (currentLevel < maxLevel) {
-        startConfettiRain(3000); // Start confetti rain for 5 seconds
+        // Show completion UI
         document.getElementById("question-container").innerHTML = `
           <p>✅ You've completed Level ${currentLevel}.</p>
           <button class="option-btn" onclick="goToNextLevel()">Go to Level ${currentLevel + 1}</button>
         `;
       } else {
-        document.getElementById("question-container").innerHTML = `<p>🎉 Congratulations! You’ve completed all levels!</p>`;
-        fireConfetti(); // Fire confetti for final level completion
+        // Final level completion
+        document.getElementById("question-container").innerHTML = `
+          <p>🎉 Congratulations! You've completed all levels!</p>
+        `;
+        fireConfetti(); 
         setTimeout(() => {
-      window.location.href = "home.html";
-    }, 5000); // 2 second delay for user to see the message
+          completeLevelAndRedirect(); // Added this new function
+        }, 3000);
       }
     }
+
+    // ...inside <script>...
+
+async function getSavedLevel() {
+  let username = localStorage.getItem('username');
+  let userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+  if (!username && userData.username) username = userData.username;
+  if (!username) return 1;
+
+  try {
+    // Fetch user data from backend
+    const res = await fetch(`/auth/user/${username}`);
+    if (!res.ok) throw new Error('Failed to fetch user data');
+    const data = await res.json();
+    // Check for completedLevels in profile
+    const completed = data?.user?.profile?.completedLevels?.auditory;
+    // If user has completed level 3, start at 3, else next level
+    if (typeof completed === 'number' && completed > 0) {
+      return completed;
+    } 
+  } catch (e) {
+    console.warn('Could not fetch saved level:', e);
+  }
+  return 1;
+}
+
+  async function completeLevelAndRedirect() {
+  console.log('[Frontend] Starting level completion process...');
+  
+  // Show loading indicator
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.className = 'loading-overlay';
+  loadingIndicator.innerHTML = `
+    <div class="loading-spinner"></div>
+    <p>Saving your progress...</p>
+  `;
+  document.body.appendChild(loadingIndicator);
+
+  try {
+    // 1. Get user session data with multiple fallbacks
+    let username = localStorage.getItem('username');
+    const authToken = localStorage.getItem('authToken');
+    let userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+
+    // Fallback to userData if username not directly in localStorage
+    if (!username && userData.username) {
+      username = userData.username;
+      console.log('[Frontend] Retrieved username from userData');
+    }
+
+    // Final fallback - redirect to login if no user session
+    if (!username) {
+      console.error('[Frontend] No user session found');
+      throw new Error('session_expired');
+    }
+
+    console.log(`[Frontend] Completing level for ${username}, type: auditory, level: ${currentLevel}`);
+
+    // 2. Make API request to save progress
+    const response = await fetch('/auth/complete-level', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken || ''}`,
+      },
+      body: JSON.stringify({
+        username: username,
+        dyslexiaType: 'auditory',
+        level: currentLevel
+      })
+    });
+    
+    console.log('[Frontend] API request sent to ',response);
+    console.log('[Frontend] API request body:', response.body);
+
+    console.log('[Frontend] API response status:', response.status);
+    
+    // 3. Handle API response
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('[Frontend] API error response:', errorData);
+      throw new Error(errorData.message || 'api_error');
+    }
+
+    const data = await response.json();
+    console.log('[Frontend] API success response:', data);
+
+    if (data.success) {
+      // 4. Update local user data
+      userData.badge = data.badges || userData.badge || {};
+      userData.profile = userData.profile || {};
+      userData.profile.completedLevels = data.completedLevels || userData.profile.completedLevels || {};
+      
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+      console.log('[Frontend] Updated user data:', userData);
+      
+      // 5. Visual feedback
+      fireConfetti();
+      startConfettiRain(3000);
+      showLevelUpMessage(currentLevel);
+      
+      // 6. Redirect after delay
+      setTimeout(() => {
+        window.location.href = `home.html?levelCompleted=auditory&lvl=${currentLevel}`;
+      }, 3000);
+    } else {
+      throw new Error(data.message || 'progress_save_failed');
+    }
+  } catch (error) {
+    console.error('[Frontend] System error:', {
+      error: error.message,
+      stack: error.stack,
+      currentLevel: currentLevel,
+      localStorage: {
+        username: localStorage.getItem('username'),
+        authToken: localStorage.getItem('authToken'),
+        currentUser: localStorage.getItem('currentUser')
+      }
+    });
+    
+    // 7. User-friendly error handling
+    let errorMessage = 'We couldn\'t save your progress.';
+    let redirectToLogin = false;
+
+    switch(error.message) {
+      case 'session_expired':
+        errorMessage = 'Your session expired. Please login again.';
+        redirectToLogin = true;
+        break;
+      case 'api_error':
+        errorMessage = 'Server error. Your progress might not be saved.';
+        break;
+      case 'progress_save_failed':
+        errorMessage = 'Failed to save progress. Please try again later.';
+        break;
+      default:
+        errorMessage = `Error: ${error.message}`;
+    }
+
+    showErrorModal(
+      `${errorMessage}<br><br>Don't worry - you can try again later.`,
+      () => {
+        if (redirectToLogin) {
+          window.location.href = 'login.html?redirect=' + 
+            encodeURIComponent(window.location.pathname);
+        }
+      }
+    );
+  } finally {
+    // 8. Always remove loading indicator
+    loadingIndicator.remove();
+  }
+}
+
+// Helper function to show level up message
+function showLevelUpMessage(level) {
+  const messages = {
+    1: "Great start! You've completed Level 1!",
+    2: "Awesome! Level 2 mastered!",
+    3: "Incredible! You've mastered all levels!"
+  };
+
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'level-up-message';
+  messageDiv.innerHTML = `
+    <div class="message-box">
+      <h3>${messages[level] || 'Level Completed!'}</h3>
+      <div class="level-badge">
+        <img src="assets/badges/auditory-level-${level}.png" alt="Level ${level} Badge">
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(messageDiv);
+  setTimeout(() => messageDiv.remove(), 3000);
+}
     function goToNextLevel() {
       currentLevel++;
       fetchQuestionsFromServer(currentLevel);
     }
   
+    function showErrorModal(message, callback) {
+      const modal = document.getElementById('error-modal');
+      document.getElementById('error-message').innerHTML = message;
+      modal.style.display = 'flex';
+      function closeHandler() {
+        modal.style.display = 'none';
+        document.getElementById('error-close-btn').removeEventListener('click', closeHandler);
+        if (callback) callback();
+      }
+      document.getElementById('error-close-btn').addEventListener('click', closeHandler);
+    }
 
+    function showLevelModal(message, btnText, callback) {
+      const modal = document.getElementById('level-modal');
+      document.getElementById('level-message').innerHTML = message;
+      const btn = document.getElementById('level-close-btn');
+      btn.textContent = btnText || "Continue";
+      modal.style.display = 'flex';
+      function closeHandler() {
+        modal.style.display = 'none';
+        btn.removeEventListener('click', closeHandler);
+        if (callback) callback();
+      }
+      btn.addEventListener('click', closeHandler);
+    }
 
+    function showLoadingModal() {
+      const modal = document.getElementById('loading-modal');
+      modal.style.display = 'flex';
+    }
 
-
-
-
+    function hideLoadingModal() {
+      const modal = document.getElementById('loading-modal');
+      modal.style.display = 'none';
+    }
   
-    window.onload = () => {
+   
+document.getElementById('close-btn').addEventListener('click', async function() {
+  // Show loading overlay or spinner if you want
+  let username = localStorage.getItem('username');
+  let authToken = localStorage.getItem('authToken');
+  let userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+  if (!username && userData.username) username = userData.username;
+
+  if (!username) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  try {
+    // Save current progress
+    await fetch('/auth/complete-level', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken || ''}`,
+      },
+      body: JSON.stringify({
+        username: username,
+        dyslexiaType: 'auditory',
+        level: currentLevel
+      })
+    });
+  } catch (e) {
+    // Optionally show an error or fallback
+    console.error('Could not save progress:', e);
+  }
+  // Redirect to home or results page
+  window.location.href = 'home.html';
+});
+ window.onload = async () => {
+  currentLevel = await getSavedLevel();
   fetchQuestionsFromServer(currentLevel);
 };
   </script>
